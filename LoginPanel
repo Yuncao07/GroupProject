@@ -1,0 +1,24 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class LoginPanel extends JPanel{
+	JLabel user,pass;
+	JTextField username;
+	JPasswordField password;
+	JButton login;
+	
+	public LoginPanel() {
+		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+		user = new JLabel("Username: ");
+		pass = new JLabel("Password: ");
+		username = new JTextField();
+		password = new JPasswordField();
+		login = new JButton("Login");
+
+		add(user);
+		add(username);
+		add(pass);
+		add(password);
+		add(login);
+	}
+}
