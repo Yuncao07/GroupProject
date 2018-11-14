@@ -1,0 +1,43 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class MenuFrame extends JFrame{
+	JPanel manager,guest,main;
+	JButton guestB,managerB;
+	
+	public MenuFrame(){
+		manager = new LoginPanel();
+		guest = new JPanel();
+		main = new JPanel();
+		main.setLayout(new BorderLayout());
+		guestB = new JButton("Guest Login");
+		managerB = new JButton("Manager Login");
+		
+		guestB.addActionListener(event -> 
+		{
+			getContentPane().removeAll();
+			getContentPane().add(guest);
+			revalidate();
+			repaint();
+			pack();
+		});
+		
+		managerB.addActionListener(event -> 
+		{
+			getContentPane().removeAll();
+			getContentPane().add(manager);
+			revalidate();
+			repaint();
+			pack();
+		});
+		main.add(BorderLayout.NORTH,new JLabel("Select user type below"));
+		main.add(BorderLayout.WEST,guestB);
+		main.add(BorderLayout.EAST,managerB);
+		
+		getContentPane().add(main);
+		pack();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+	
+}
