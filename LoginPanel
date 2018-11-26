@@ -2,10 +2,9 @@ import java.awt.*;
 import javax.swing.*;
 
 public class LoginPanel extends JPanel{
-	JLabel user,pass;
-	JTextField username;
-	JPasswordField password;
-	JButton login;
+	private JLabel user,pass;
+	private JTextField username;
+	private JPasswordField password;
 	
 	public LoginPanel() {
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
@@ -13,12 +12,18 @@ public class LoginPanel extends JPanel{
 		pass = new JLabel("Password: ");
 		username = new JTextField();
 		password = new JPasswordField();
-		login = new JButton("Login");
 
 		add(user);
 		add(username);
 		add(pass);
 		add(password);
-		add(login);
+	}
+	
+	public String getUsername() {
+		return username.getText();
+	}
+	
+	public String getPassword() {
+		return new String(password.getPassword());
 	}
 }
