@@ -3,8 +3,8 @@ import javax.swing.*;
 
 public class MenuFrame extends JFrame{
 	JPanel guest,main, reserveChoice, managerOptions;
+	SignUpPanel supanel;
 	LoginPanel login;
-	JButton guestButton,managerButton;
 	
 	public MenuFrame(){
 		login = new LoginPanel(); //panel when manager button is pressed
@@ -14,8 +14,8 @@ public class MenuFrame extends JFrame{
 		
 		main.setLayout(new BorderLayout());
 		
-		guestButton = new JButton("Guest Login");
-		managerButton = new JButton("Manager Login");
+		JButton guestButton = new JButton("Guest Login");
+		JButton managerButton = new JButton("Manager Login");
 		
 		guestButton.addActionListener(event -> 				//moves user to guest section of program
 		{
@@ -64,7 +64,7 @@ public class MenuFrame extends JFrame{
 			pack();
 		});
 		
-		JPanel supanel = new SignUpPanel();
+		supanel = new SignUpPanel();
 		JButton createAccount = new JButton("Create Account");
 		
 		signUp.addActionListener(event -> {					//directs user to create a new account
