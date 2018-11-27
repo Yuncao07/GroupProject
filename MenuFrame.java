@@ -2,9 +2,9 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MenuFrame extends JFrame{
-	JPanel guest,main, reserveChoice, managerOptions;
-	SignUpPanel supanel;
-	LoginPanel login;
+	JPanel guest,main, reserveChoice, managerOptions; //panels with only buttons
+	SignUpPanel supanel;	//panel to create an account with
+	LoginPanel login;	//panel to sign in and verify user
 	
 	public MenuFrame(){
 		login = new LoginPanel(); //panel when manager button is pressed
@@ -19,7 +19,7 @@ public class MenuFrame extends JFrame{
 		
 		guestButton.addActionListener(event -> 				//moves user to guest section of program
 		{
-			login.manager(false);
+			login.manager(false);	//placeholder for manager/guest accounts
 			getContentPane().removeAll();
 			getContentPane().add(guest);
 			revalidate();
@@ -29,7 +29,7 @@ public class MenuFrame extends JFrame{
 		
 		managerButton.addActionListener(event -> 			//moves user to manager section of program
 		{
-			login.manager(true);
+			login.manager(true);	//placeholder for manager/guest accounts
 			getContentPane().removeAll();
 			getContentPane().add(login);
 			revalidate();
@@ -42,11 +42,11 @@ public class MenuFrame extends JFrame{
 			//get text from text area and checking flag for manager
 			if(login.isManager()) {
 				getContentPane().removeAll();
-				getContentPane().add(managerOptions); //go to jpanel with manager options
+				getContentPane().add(managerOptions); //go to panel with manager options
 			}
 			else {
 				getContentPane().removeAll();
-				getContentPane().add(reserveChoice);
+				getContentPane().add(reserveChoice); //go to panel with guest options
 			}
 			revalidate();
 			repaint();
@@ -93,7 +93,7 @@ public class MenuFrame extends JFrame{
 		
 		make.addActionListener(event ->{			//make a reservation
 			getContentPane().removeAll();
-			getContentPane().add(new JPanel()); //add reservation date here
+			getContentPane().add(new JPanel()); //add reservation date panel here (placeholder right now)
 			revalidate();
 			repaint();
 			pack();
@@ -110,18 +110,19 @@ public class MenuFrame extends JFrame{
 		JButton load = new JButton("Load"), view = new JButton("View"), save = new JButton("Save"), quit = new JButton("Quit");
 		
 		load.addActionListener(event ->{
-			//load from text
+			//load reservations from text file
 		});
 		
 		view.addActionListener(event ->{
-			//display mvc view of reservations
+			//display mvc view of reservations and return when done
 		});
 		
 		save.addActionListener(event ->{
-			//write to text file of reservations
+			//write to a file which holds reservation data
 		});
 		
-		quit.addActionListener(event ->{
+		quit.addActionListener(event ->{		//closes program after saving data
+			//save method here
 			System.exit(0);
 		});
 		
