@@ -2,7 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MenuFrame extends JFrame{
-	JPanel login,guest,main;
+	JPanel guest,main, reserveChoice, managerOptions;
+	LoginPanel login;
 	JButton guestButton,managerButton;
 	
 	public MenuFrame(){
@@ -18,6 +19,7 @@ public class MenuFrame extends JFrame{
 		
 		guestButton.addActionListener(event -> 				//moves user to guest section of program
 		{
+			login.manager(false);
 			getContentPane().removeAll();
 			getContentPane().add(guest);
 			revalidate();
@@ -27,6 +29,7 @@ public class MenuFrame extends JFrame{
 		
 		managerButton.addActionListener(event -> 			//moves user to manager section of program
 		{
+			login.manager(true);
 			getContentPane().removeAll();
 			getContentPane().add(login);
 			revalidate();
@@ -36,8 +39,18 @@ public class MenuFrame extends JFrame{
 		
 		JButton loginButton = new JButton("Log in");
 		loginButton.addActionListener(event -> {
-			//get text from text areas
-			//
+			//get text from text area and checking flag for manager
+			if(login.isManager()) {
+				getContentPane().removeAll();
+				getContentPane().add(managerOptions); //go to jpanel with manager options
+			}
+			else {
+				getContentPane().removeAll();
+				getContentPane().add(reserveChoice);
+			}
+			revalidate();
+			repaint();
+			pack();
 		});
 		login.add(loginButton);
 		
@@ -62,13 +75,60 @@ public class MenuFrame extends JFrame{
 			pack();
 		});
 		
-		createAccount.addActionListener(event -> {
+		createAccount.addActionListener(event -> {			//directs user to log in
 			//get text info and create a new account
+			getContentPane().removeAll();
+			getContentPane().add(login);
+			revalidate();
+			repaint();
+			pack();
 		});
 		
 		supanel.add(createAccount);
 		guest.add(signIn);
 		guest.add(signUp);
+		
+		reserveChoice = new JPanel();
+		JButton make = new JButton("Make Reservation"), viewOrCancel = new JButton("View/Cancel Reservation");
+		
+		make.addActionListener(event ->{			//make a reservation
+			getContentPane().removeAll();
+			getContentPane().add(new JPanel()); //add reservation date here
+			revalidate();
+			repaint();
+			pack();
+		});
+		
+		viewOrCancel.addActionListener(event ->{	//allow this guest to check reservations and cancel if needed
+			
+		});
+		
+		reserveChoice.add(make);
+		reserveChoice.add(viewOrCancel);
+		
+		managerOptions = new JPanel();
+		JButton load = new JButton("Load"), view = new JButton("View"), save = new JButton("Save"), quit = new JButton("Quit");
+		
+		load.addActionListener(event ->{
+			//load from text
+		});
+		
+		view.addActionListener(event ->{
+			//display mvc view of reservations
+		});
+		
+		save.addActionListener(event ->{
+			//write to text file of reservations
+		});
+		
+		quit.addActionListener(event ->{
+			System.exit(0);
+		});
+		
+		managerOptions.add(load);
+		managerOptions.add(view);
+		managerOptions.add(save);
+		managerOptions.add(quit);
 		
 		main.add(BorderLayout.NORTH,new JLabel("Select user type below"));
 		main.add(BorderLayout.WEST,guestButton);
