@@ -1,6 +1,6 @@
 
 public interface Room {
-	public String getRoomNumber();
+	public int getRoomNumber();
 	public double getPrice();
 	public boolean isAvailable(DateReservation checkingDate);
 }

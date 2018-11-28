@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public abstract class CommonRoom implements Room {
 	private ArrayList<DateReservation> bookedDates;
-	String roomNumber;
+	protected int roomNumber;
 	
 	public boolean isAvailable(DateReservation checkingDate) {
 		for(DateReservation d : bookedDates) {
@@ -19,8 +19,8 @@ public abstract class CommonRoom implements Room {
 		return true;
 	}
 	
-	public String getRoomNumber() {
+	public int getRoomNumber() {
 		return roomNumber;
 	}
-
+	
 }

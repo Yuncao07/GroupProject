@@ -1,6 +1,11 @@
 
 public class LuxRoom extends CommonRoom {
-	private double price = 300.0;
+	static final double PRICE = 300.0;
+	private double price = PRICE;
+	
+	public LuxRoom(int roomNum) {
+		roomNumber = roomNum;
+	}
 	
 	public double getPrice() {
 		return price;
