@@ -2,25 +2,33 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MenuFrame extends JFrame{
-	JPanel guest,main, reserveChoice, managerOptions, buttons; //panels with only buttons
-	SignUpPanel supanel;	//panel to create an account with
-	LoginPanel login;	//panel to sign in and verify user
+	private JPanel guest,main, reserveChoice, managerOptions;
+	private LoginPanel login;
+	private SignUpPanel supanel;
+	private JButton guestButton,managerButton;
+	private Guest guestList;
+	private Manager managerList;
+	private DatePanel datePicking;
+	private ReservationPanel reservePanel;
+	
 	
 	public MenuFrame(){
 		login = new LoginPanel(); //panel when manager button is pressed
 		guest = new JPanel(); //panel when guest button is pressed
 		main = new JPanel(); //panel that opens first
-		buttons = new JPanel(); //panel contains the first 2 buttons
-		
+		guestList = new Guest();
+		managerList = new Manager();
 		
 		main.setLayout(new BorderLayout());
 		
-		JButton guestButton = new JButton("Guest Login");
-		JButton managerButton = new JButton("Manager Login");
+		//---------------------------------------------------------------------------------------------------
+		
+		guestButton = new JButton("Guest Login");
+		managerButton = new JButton("Manager Login");
 		
 		guestButton.addActionListener(event -> 				//moves user to guest section of program
 		{
-			login.manager(false);	//placeholder for manager/guest accounts
+			login.manager(false);
 			getContentPane().removeAll();
 			getContentPane().add(guest);
 			revalidate();
@@ -30,7 +38,7 @@ public class MenuFrame extends JFrame{
 		
 		managerButton.addActionListener(event -> 			//moves user to manager section of program
 		{
-			login.manager(true);	//placeholder for manager/guest accounts
+			login.manager(true);
 			getContentPane().removeAll();
 			getContentPane().add(login);
 			revalidate();
@@ -38,22 +46,35 @@ public class MenuFrame extends JFrame{
 			pack();
 		});
 		
+		//-----------------------------------------------------------------------------------------------------
+		
 		JButton loginButton = new JButton("Log in");
 		loginButton.addActionListener(event -> {
-			//get text from text area and checking flag for manager
 			if(login.isManager()) {
-				getContentPane().removeAll();
-				getContentPane().add(managerOptions); //go to panel with manager options
+				if(managerList.verify(login.getUsername(), login.getPassword())) {
+					getContentPane().removeAll();
+					getContentPane().add(managerOptions); //go to jpanel with manager options
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Incorrect user name or password or account does not exist.");
+				}
 			}
 			else {
-				getContentPane().removeAll();
-				getContentPane().add(reserveChoice); //go to panel with guest options
+				if(guestList.verify(login.getUsername(), login.getPassword())) {
+					getContentPane().removeAll();
+					getContentPane().add(reserveChoice);
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Incorrect user name or password or account does not exist.");
+				}
 			}
 			revalidate();
 			repaint();
 			pack();
 		});
 		login.add(loginButton);
+		
+		//--------------------------------------------------------------------------------------------------------
 		
 		JButton signIn = new JButton("Sign In"), signUp = new JButton("Sign up");
 		
@@ -64,6 +85,8 @@ public class MenuFrame extends JFrame{
 			repaint();
 			pack();
 		});
+		
+		//---------------------------------------------------------------------------------------------------------
 		
 		supanel = new SignUpPanel();
 		JButton createAccount = new JButton("Create Account");
@@ -77,24 +100,26 @@ public class MenuFrame extends JFrame{
 		});
 		
 		createAccount.addActionListener(event -> {			//directs user to log in
-			//get text info and create a new account
+			guestList.add(new Account(supanel.getUser(),supanel.getPass(),supanel.getName()));
 			getContentPane().removeAll();
 			getContentPane().add(login);
 			revalidate();
 			repaint();
 			pack();
 		});
-		
 		supanel.add(createAccount);
+		
 		guest.add(signIn);
 		guest.add(signUp);
+		
+		//---------------------------------------------------------------------------------------------------------
 		
 		reserveChoice = new JPanel();
 		JButton make = new JButton("Make Reservation"), viewOrCancel = new JButton("View/Cancel Reservation");
 		
 		make.addActionListener(event ->{			//make a reservation
 			getContentPane().removeAll();
-			getContentPane().add(new JPanel()); //add reservation date panel here (placeholder right now)
+			getContentPane().add(datePicking); //add reservation date here
 			revalidate();
 			repaint();
 			pack();
@@ -107,23 +132,74 @@ public class MenuFrame extends JFrame{
 		reserveChoice.add(make);
 		reserveChoice.add(viewOrCancel);
 		
+		//---------------------------------------------------------------------------------------------------------
+		
+		datePicking = new DatePanel();
+		
+		datePicking.addListenerToSEButton(event ->{		//user selected economic room
+			//selection here
+		});
+		
+		datePicking.addListenerToSLButton(event ->{		//user selected luxurious room
+			//selection here
+		});
+		
+		datePicking.addListenerToSButton(event ->{	//show available rooms
+			getContentPane().removeAll();
+			getContentPane().add(reservePanel); //add reservation date here
+			revalidate();
+			repaint();
+			pack();
+		});
+		
+		//---------------------------------------------------------------------------------------------------------
+		
+		reservePanel = new ReservationPanel();
+		JButton confirm = new JButton("Confirm"), more = new JButton("More Reservations"), done = new JButton("Done");
+		
+		confirm.addActionListener(event ->{			//add to list of reservations made by person
+			//add to list of reservations
+		});
+		
+		more.addActionListener(event ->{			//move back to date picking panel
+			getContentPane().removeAll();
+			getContentPane().add(datePicking); 
+			revalidate();
+			repaint();
+			pack();
+		});
+		
+		done.addActionListener(event ->{		//move onto reciept	
+			getContentPane().removeAll();
+			getContentPane().add(new JPanel()); 
+			revalidate();
+			repaint();
+			pack();
+		});
+		
+		reservePanel.add(confirm);
+		reservePanel.add(more);
+		reservePanel.add(done);
+		
+		//---------------------------------------------------------------------------------------------------------
+		
 		managerOptions = new JPanel();
 		JButton load = new JButton("Load"), view = new JButton("View"), save = new JButton("Save"), quit = new JButton("Quit");
 		
 		load.addActionListener(event ->{
-			//load reservations from text file
+			//load from text
+			
 		});
 		
 		view.addActionListener(event ->{
-			//display mvc view of reservations and return when done
+			//display mvc view of reservations
 		});
 		
 		save.addActionListener(event ->{
-			//write to a file which holds reservation data
+			//write to text file of reservations
 		});
 		
-		quit.addActionListener(event ->{		//closes program after saving data
-			//save method here
+		quit.addActionListener(event ->{
 			System.exit(0);
 		});
 		
@@ -132,10 +208,11 @@ public class MenuFrame extends JFrame{
 		managerOptions.add(save);
 		managerOptions.add(quit);
 		
+		//---------------------------------------------------------------------------------------------------------
+		
 		main.add(BorderLayout.NORTH,new JLabel("Select user type below"));
-		buttons.add(guestButton);
-		buttons.add(managerButton);
-		main.add(buttons, BorderLayout.CENTER); //I just think it looks nicer
+		main.add(BorderLayout.WEST,guestButton);
+		main.add(BorderLayout.EAST,managerButton);
 		
 		getContentPane().add(main);
 		pack();
