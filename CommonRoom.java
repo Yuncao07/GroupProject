@@ -4,6 +4,10 @@ public abstract class CommonRoom implements Room {
 	private ArrayList<DateReservation> bookedDates;
 	protected int roomNumber;
 	
+	public CommonRoom(int roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+	
 	public boolean isAvailable(DateReservation checkingDate) {
 		for(DateReservation d : bookedDates) {
 			boolean startingDateInRange = checkingDate.getStartDate().compareTo(d.getStartDate()) >= 0 && 

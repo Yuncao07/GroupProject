@@ -4,7 +4,7 @@ public class LuxRoom extends CommonRoom {
 	private double price = PRICE;
 	
 	public LuxRoom(int roomNum) {
-		roomNumber = roomNum;
+		super(roomNum);
 	}
 	
 	public double getPrice() {
