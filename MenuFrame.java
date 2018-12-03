@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MenuFrame extends JFrame{
-	JPanel guest,main, reserveChoice, managerOptions; //panels with only buttons
+	JPanel guest,main, reserveChoice, managerOptions, buttons; //panels with only buttons
 	SignUpPanel supanel;	//panel to create an account with
 	LoginPanel login;	//panel to sign in and verify user
 	
@@ -10,6 +10,7 @@ public class MenuFrame extends JFrame{
 		login = new LoginPanel(); //panel when manager button is pressed
 		guest = new JPanel(); //panel when guest button is pressed
 		main = new JPanel(); //panel that opens first
+		buttons = new JPanel(); //panel contains the first 2 buttons
 		
 		
 		main.setLayout(new BorderLayout());
@@ -132,8 +133,9 @@ public class MenuFrame extends JFrame{
 		managerOptions.add(quit);
 		
 		main.add(BorderLayout.NORTH,new JLabel("Select user type below"));
-		main.add(BorderLayout.WEST,guestButton);
-		main.add(BorderLayout.EAST,managerButton);
+		buttons.add(guestButton);
+		buttons.add(managerButton);
+		main.add(buttons, BorderLayout.CENTER); //I just think it looks nicer
 		
 		getContentPane().add(main);
 		pack();

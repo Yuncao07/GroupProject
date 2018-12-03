@@ -7,7 +7,7 @@ public class Guest {
 		accounts = new ArrayList<Account>();
 	}
 	
-	public addGuest(Account a){
+	public void addGuest(Account a){
 		accounts.add(a);
 	}
 	
