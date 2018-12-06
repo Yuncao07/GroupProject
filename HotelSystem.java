@@ -9,6 +9,7 @@ public class HotelSystem {
 		menuFrame.setVisible(true);
 		menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		
 	}
 
 }

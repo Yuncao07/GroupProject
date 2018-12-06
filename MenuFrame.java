@@ -100,7 +100,7 @@ public class MenuFrame extends JFrame{
 		});
 		
 		createAccount.addActionListener(event -> {			//directs user to log in
-			guestList.add(new Account(supanel.getUser(),supanel.getPass(),supanel.getName()));
+			guestList.addGuest(new Account(supanel.getUser(),supanel.getPass(),supanel.getName()));
 			getContentPane().removeAll();
 			getContentPane().add(login);
 			revalidate();
