@@ -7,7 +7,7 @@ import java.util.*;
 public class RoomList {
 	private ArrayList<EconomicRoom> eRoom;
 	private ArrayList<LuxRoom> lRoom;
-	private ArrayList<Room> availableRooms;
+	private ArrayList<Room> availableRooms, reservedRooms;
 	
 	/**
 	 * Instances a RoomList with 10 economic rooms 
@@ -40,5 +40,19 @@ public class RoomList {
 		}
 		
 		return availableRooms;
+	}
+	
+	public ArrayList<Room> getReservedRooms (DateReservation datePeriod) {
+		for(EconomicRoom r : eRoom) {
+			if(!r.isAvailable(datePeriod))
+				reservedRooms.add(r);
+		}
+		
+		for(LuxRoom r : lRoom) {
+			if(!r.isAvailable(datePeriod))
+				reservedRooms.add(r);
+		}
+		
+		return reservedRooms;
 	}
 }
