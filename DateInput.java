@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public abstract class DateInput extends JPanel implements ActionListener, DatePicker {
 	final JTextField inputField;
 
-	private static LocalDate parseDate(final String text) {
+	public static LocalDate parseDate(final String text) {
 		final Pattern pattern = Pattern.compile("(\\d{1,2})[/-](\\d{1,2})[/-](\\d{2,4})");
 		final Matcher matcher = pattern.matcher(text);
 		if (!matcher.find() || matcher.groupCount() < 3)

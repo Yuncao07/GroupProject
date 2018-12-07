@@ -9,6 +9,13 @@ public class DateReservation {
 		endDate = eDate;
 	}
 	
+	public static boolean allowedDates(LocalDate sDate, LocalDate eDate) {
+		if(sDate.plusDays(61).compareTo(eDate) <= 0) { //if end date is longer than 60 days this will be true
+			return false;
+		}
+		return true;
+	}
+	
 	public LocalDate getStartDate(){
 		return startDate;
 	}

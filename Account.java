@@ -26,6 +26,9 @@ public class Account {
 		return fullName;
 	}
 	
+	public void reserve(Reservation r) {
+		reservationList.add(r);
+	}
 	/**
 	 * to access reservation made in a specific date
 	 * @param d the date someone makes reservation

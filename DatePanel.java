@@ -3,9 +3,11 @@ import javax.swing.*;
 
 public class DatePanel extends JPanel{
 	JButton selectedEconomic = new JButton("$100"), selectedLuxurious = new JButton("$300"), show = new JButton("Show available rooms");
+	JTextField startDate, endDate;
 	public DatePanel(){
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-		JTextField startDate = new JTextField(), endDate = new JTextField();
+		startDate = new JTextField();
+		endDate = new JTextField();
 		JLabel room = new JLabel("Room type:"), dateEntry = new JLabel("Start and End dates (Format: MM/DD/YYYY)");
 		
 		selectedEconomic = new JButton("$100");
@@ -28,5 +30,11 @@ public class DatePanel extends JPanel{
 	}
 	public void addListenerToSButton(ActionListener l) {
 		show.addActionListener(l);
+	}
+	public String getStart() {
+		return startDate.getText();
+	}
+	public String getEnd() {
+		return endDate.getText();
 	}
 }

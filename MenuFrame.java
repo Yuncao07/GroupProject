@@ -7,10 +7,11 @@ public class MenuFrame extends JFrame{
 	private SignUpPanel supanel;
 	private JButton guestButton,managerButton;
 	private Guest guestList;
-	private Manager managerList;
+	private Manager managerList; //maybe not necessary now
 	private DatePanel datePicking;
 	private ReservationPanel reservePanel;
 	private RoomList list;
+	private Account current;
 	
 	public MenuFrame(){
 		login = new LoginPanel(); //panel when manager button is pressed
@@ -52,17 +53,15 @@ public class MenuFrame extends JFrame{
 		
 		JButton loginButton = new JButton("Log in");
 		loginButton.addActionListener(event -> {
+			String user = login.getUsername();
+			String pass = login.getPassword();
 			if(login.isManager()) {
-				if(managerList.verify(login.getUsername(), login.getPassword())) {
-					getContentPane().removeAll();
-					getContentPane().add(managerOptions); //go to jpanel with manager options
-				}
-				else {
-					JOptionPane.showMessageDialog(this, "Incorrect user name or password or account does not exist.");
-				}
+				getContentPane().removeAll();
+				getContentPane().add(managerOptions); //go to jpanel with manager options
 			}
 			else {
-				if(guestList.verify(login.getUsername(), login.getPassword())) {
+				if(guestList.verify(user, pass)) {
+					current = guestList.getAccount(user, pass);
 					getContentPane().removeAll();
 					getContentPane().add(reserveChoice);
 				}
@@ -147,11 +146,21 @@ public class MenuFrame extends JFrame{
 		});
 		
 		datePicking.addListenerToSButton(event ->{	//show available rooms
-			getContentPane().removeAll();
-			getContentPane().add(reservePanel); //add reservation date here
-			revalidate();
-			repaint();
-			pack();
+			if(DateInput.parseDate(datePicking.getStart()) != null && DateInput.parseDate(datePicking.getEnd()) != null) {
+				if(DateReservation.allowedDates(DateInput.parseDate(datePicking.getStart()),DateInput.parseDate(datePicking.getEnd()))){
+					getContentPane().removeAll();
+					getContentPane().add(reservePanel); //add reservation date here
+					revalidate();
+					repaint();
+					pack();
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Stay cannot be longer than 60 nights.");
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Invalid date has been entered.");
+			}
 		});
 		
 		//---------------------------------------------------------------------------------------------------------
@@ -161,6 +170,7 @@ public class MenuFrame extends JFrame{
 		
 		confirm.addActionListener(event ->{			//add to list of reservations made by person
 			//add to list of reservations
+			//current.reserve();
 		});
 		
 		more.addActionListener(event ->{			//move back to date picking panel

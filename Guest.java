@@ -20,4 +20,18 @@ public class Guest {
 		}
 		return accessible;
 	}
+	
+	public ArrayList<Account> getGuests(){
+		return accounts;
+	}
+	
+	public Account getAccount(String username,String password) {
+		Account acct = null;
+		for(Account a : accounts) {
+			if(a.getID().equals(username) && a.getPassword().equals(password)) {
+				acct = a;
+			}
+		}
+		return acct;
+	}
 }
