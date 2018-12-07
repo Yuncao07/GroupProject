@@ -26,7 +26,7 @@ public class Reservation {
 	
 	public void cancelRoom(Room r) {
 		for(int i = reserveRooms.size() - 1; i <= 0; i--) {
-			if (reserveRooms.get(i) == r)
+			if (reserveRooms.get(i).getRoomNumber() == r.getRoomNumber())
 				reserveRooms.remove(i);
  		}		
 	}

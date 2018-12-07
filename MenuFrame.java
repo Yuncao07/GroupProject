@@ -45,7 +45,7 @@ public class MenuFrame extends JFrame{
 		{
 			login.manager(true);
 			getContentPane().removeAll();
-			getContentPane().add(login);
+			getContentPane().add(managerOptions);
 			revalidate();
 			repaint();
 			pack();
