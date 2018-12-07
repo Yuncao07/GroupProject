@@ -1,13 +1,17 @@
 /**
+ * @author Yun Cao
  * This class is for showing available rooms with their room numbers
+ * Model of View function
  */
 
 import java.util.*;
+import javax.swing.event.*;
 
 public class RoomList {
 	private ArrayList<EconomicRoom> eRoom;
 	private ArrayList<LuxRoom> lRoom;
 	private ArrayList<Room> availableRooms, reservedRooms;
+	private ArrayList<ChangeListener> listeners;
 	
 	/**
 	 * Instances a RoomList with 10 economic rooms 

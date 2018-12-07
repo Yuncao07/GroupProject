@@ -29,11 +29,5 @@ public abstract class Receipt {
 		return String.format("Total Cost: %d", totalCost);
 	}
 
-	private List<Room> getRooms() {
-		List<Room> reservedRooms = new ArrayList<>();
-		account.getReservationList()
-					.stream()
-					.forEach(reservation -> reservedRooms.addAll(reservation.getReservedRooms()));
-		return reservedRooms;
-	}
+	protected abstract List<Room> getRooms();
 }

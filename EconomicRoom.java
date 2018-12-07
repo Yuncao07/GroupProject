@@ -1,6 +1,7 @@
 
 public class EconomicRoom extends Room {
-	private double price = 100;
+	static final double PRICE = 100.0;
+	private double price = PRICE;
 	
 	public EconomicRoom(int roomNum) {
 		super(roomNum);

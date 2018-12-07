@@ -1,13 +1,17 @@
+/**
+ * @author Yun Cao
+ * The panel for manager's calendar view
+ */
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class AvailableRoomViewPanel {
+public class AvailableRoomViewPanel extends JPanel {
 	private JLabel dateString;
 	private JTextArea view;
-	private String firstLine = "Room Information";
-	private String secondLine = "Available rooms: \n";
-	private String thirdLine = "Reserved rooms: \n";
+	private String firstLine = "Room Information\n";
+	private String secondLine = "Available rooms: ";
+	private String thirdLine = "Reserved rooms: ";
 	private String str;
 	
 	public AvailableRoomViewPanel(LocalDate d, RoomList roomList) {
@@ -27,8 +31,7 @@ public class AvailableRoomViewPanel {
 			thirdLine += r.getRoomNumber() + " ";
 		}
 		
-		str = firstLine + secondLine + thirdLine;
+		str = firstLine + secondLine +"\n" + thirdLine;
 		view.setText(str);
-		
 	}
 }
