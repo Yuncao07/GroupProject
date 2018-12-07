@@ -41,17 +41,17 @@ public abstract class DateInput extends JPanel implements ActionListener, DatePi
 		repaint();
 	}
 
-	public static void main(final String[] args) {
-		final JFrame dateFrame = new JFrame();
-		dateFrame.setSize(500, 500);
-		dateFrame.add(new DateInput() {
-			@Override
-			public void onDateSelected(LocalDate date) {
-				System.out.printf("Selected %d/%d/%d", date.getMonthValue(), date.getDayOfMonth(), date.getYear());
-			}
-		});
-
-		dateFrame.setVisible(true);
-		dateFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+//	public static void main(final String[] args) {
+//		final JFrame dateFrame = new JFrame();
+//		dateFrame.setSize(500, 500);
+//		dateFrame.add(new DateInput() {
+//			@Override
+//			public void onDateSelected(LocalDate date) {
+//				System.out.printf("Selected %d/%d/%d", date.getMonthValue(), date.getDayOfMonth(), date.getYear());
+//			}
+//		});
+//
+//		dateFrame.setVisible(true);
+//		dateFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	}
 }

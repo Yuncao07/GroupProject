@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MenuFrame extends JFrame{
-	private JPanel guest,main, reserveChoice, managerOptions;
+	private JPanel guest,main, initial, reserveChoice, managerOptions, managerView;
 	private LoginPanel login;
 	private SignUpPanel supanel;
 	private JButton guestButton,managerButton;
@@ -14,11 +14,13 @@ public class MenuFrame extends JFrame{
 	
 	public MenuFrame(){
 		login = new LoginPanel(); //panel when manager button is pressed
+		initial = new JPanel();
 		guest = new JPanel(); //panel when guest button is pressed
 		main = new JPanel(); //panel that opens first
 		guestList = new Guest();
 		managerList = new Manager();
 		list = new RoomList();
+		
 		
 		
 		main.setLayout(new BorderLayout());
@@ -194,8 +196,12 @@ public class MenuFrame extends JFrame{
 			
 		});
 		
+		managerView = new JPanel();
+		managerView.setLayout(new BorderLayout());
+		
 		view.addActionListener(event ->{
-			//display mvc view of reservations
+			managerView.add(new AvailableRoomViewPanel(list), BorderLayout.NORTH);
+			//add room clickable panel here with BorderLaybout.SOUTH
 		});
 		
 		save.addActionListener(event ->{
@@ -214,8 +220,9 @@ public class MenuFrame extends JFrame{
 		//---------------------------------------------------------------------------------------------------------
 		
 		main.add(BorderLayout.NORTH,new JLabel("Select user type below"));
-		main.add(BorderLayout.WEST,guestButton);
-		main.add(BorderLayout.EAST,managerButton);
+		main.add(initial, BorderLayout.CENTER);
+		initial.add(guestButton);
+		initial.add(managerButton);
 		
 		getContentPane().add(main);
 		pack();
