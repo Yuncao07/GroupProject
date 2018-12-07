@@ -1,13 +1,14 @@
 import java.awt.*;
+import java.time.LocalDate;
+
 import javax.swing.*;
 
 public class ReservationPanel extends JPanel{
 	public ReservationPanel(){
-		setLayout(new FlowLayout());
-		JPanel roomDisplay = new JPanel();
+		setLayout(new BorderLayout());
+		BookingRoomPanel roomDisplay = new BookingRoomPanel(LocalDate.now(),LocalDate.now(),new RoomList());
 		JTextField roomNum = new JTextField();
-		//need to make this display all available rooms
-		add(roomDisplay);
-		add(roomNum);
+		add(roomDisplay,BorderLayout.NORTH);
+		add(roomNum,BorderLayout.CENTER);
 	}
 }

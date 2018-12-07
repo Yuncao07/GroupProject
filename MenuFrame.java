@@ -10,7 +10,7 @@ public class MenuFrame extends JFrame{
 	private Manager managerList;
 	private DatePanel datePicking;
 	private ReservationPanel reservePanel;
-	
+	private RoomList list;
 	
 	public MenuFrame(){
 		login = new LoginPanel(); //panel when manager button is pressed
@@ -18,6 +18,8 @@ public class MenuFrame extends JFrame{
 		main = new JPanel(); //panel that opens first
 		guestList = new Guest();
 		managerList = new Manager();
+		list = new RoomList();
+		
 		
 		main.setLayout(new BorderLayout());
 		
@@ -137,11 +139,11 @@ public class MenuFrame extends JFrame{
 		datePicking = new DatePanel();
 		
 		datePicking.addListenerToSEButton(event ->{		//user selected economic room
-			//selection here
+			list.luxRoom(false);
 		});
 		
 		datePicking.addListenerToSLButton(event ->{		//user selected luxurious room
-			//selection here
+			list.luxRoom(true);
 		});
 		
 		datePicking.addListenerToSButton(event ->{	//show available rooms
@@ -176,10 +178,11 @@ public class MenuFrame extends JFrame{
 			repaint();
 			pack();
 		});
-		
-		reservePanel.add(confirm);
-		reservePanel.add(more);
-		reservePanel.add(done);
+		JPanel buttonContainer = new JPanel();
+		buttonContainer.add(confirm);
+		buttonContainer.add(more);
+		buttonContainer.add(done);
+		reservePanel.add(buttonContainer,BorderLayout.SOUTH);
 		
 		//---------------------------------------------------------------------------------------------------------
 		

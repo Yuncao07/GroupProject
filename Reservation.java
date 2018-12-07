@@ -9,6 +9,10 @@ public class Reservation {
 	private LocalDate dateMakeReservation;
 	private ArrayList<Room> reserveRooms;
 	
+	public Reservation() {
+		reserveRooms = new ArrayList<Room>();
+	}
+	
 	public LocalDate getDateReserve() {
 		return dateMakeReservation;
 	}
