@@ -8,12 +8,17 @@ public class RoomList {
 	private ArrayList<EconomicRoom> eRoom;
 	private ArrayList<LuxRoom> lRoom;
 	private ArrayList<Room> availableRooms, reservedRooms;
-	
+	private boolean isLuxRoom;
 	/**
 	 * Instances a RoomList with 10 economic rooms 
 	 * 	and 10 luxury rooms with it's number
 	 */
 	public RoomList() {
+		eRoom = new ArrayList<EconomicRoom>();
+		lRoom = new ArrayList<LuxRoom>();
+		availableRooms = new ArrayList<Room>();
+		reservedRooms = new ArrayList<Room>();
+		
 		for(int i = 1; i <= 10; i++) {
 			eRoom.add(new EconomicRoom(i));
 		}
@@ -54,5 +59,25 @@ public class RoomList {
 		}
 		
 		return reservedRooms;
+	}
+	
+	public void luxRoom(boolean b) {
+		isLuxRoom = b;
+	}
+	
+	public ArrayList<Room> getChosenAvailableRooms(DateReservation datePeriod){
+		if(isLuxRoom) {
+			for(LuxRoom r : lRoom) {
+				if(r.isAvailable(datePeriod))
+					availableRooms.add(r);
+			}
+		}
+		else {
+			for(EconomicRoom r : eRoom) {
+				if(r.isAvailable(datePeriod))
+					availableRooms.add(r);
+			}
+		}
+		return availableRooms;
 	}
 }

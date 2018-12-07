@@ -16,4 +16,8 @@ public class DateReservation {
 	public LocalDate getEndDate() {
 		return endDate;
 	}
+	
+	public String toString() {
+		return startDate.getMonthValue() + "/" + startDate.getDayOfMonth() + "/" + startDate.getYear() + " - " + endDate.getMonthValue() + "/" + endDate.getDayOfMonth() + "/" + endDate.getYear();
+	}
 }

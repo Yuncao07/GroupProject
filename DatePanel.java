@@ -6,7 +6,7 @@ public class DatePanel extends JPanel{
 	public DatePanel(){
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 		JTextField startDate = new JTextField(), endDate = new JTextField();
-		JLabel room = new JLabel("Room type:"), dateEntry = new JLabel("Start and End dates:");
+		JLabel room = new JLabel("Room type:"), dateEntry = new JLabel("Start and End dates (Format: MM/DD/YYYY)");
 		
 		selectedEconomic = new JButton("$100");
 		selectedLuxurious = new JButton("$300");
