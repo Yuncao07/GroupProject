@@ -1,9 +1,10 @@
 /**
  * @author Yun Cao
  * This class is for showing available rooms with their room numbers
- * Model of View function
+ * Model of calendar view
  */
 
+import java.time.LocalDate;
 import java.util.*;
 import javax.swing.event.*;
 
@@ -12,6 +13,7 @@ public class RoomList {
 	private ArrayList<LuxRoom> lRoom;
 	private ArrayList<Room> availableRooms, reservedRooms;
 	private ArrayList<ChangeListener> listeners;
+	private LocalDate date;
 	
 	private boolean isLuxRoom;
 
@@ -32,6 +34,22 @@ public class RoomList {
 		for(int i = 11; i <= 20; i++) {
 			lRoom.add(new LuxRoom(i));
 		}
+		
+		listeners = new ArrayList<ChangeListener>();
+		
+	}
+	
+	public void setDate(LocalDate d) {
+		date = d;
+	}
+	public void attach(ChangeListener c) {
+		listeners.add(c);
+	}
+	
+	public void mutator() {
+		for(ChangeListener c : listeners) {
+			c.stateChanged(new ChangeEvent(this));
+		}
 	}
 	
 	/**
@@ -39,28 +57,33 @@ public class RoomList {
 	 * @param datePeriod period of time that user wants to book
 	 * @return a list of Room with available rooms
 	 */
-	public ArrayList<Room> getAvailableRooms (DateReservation datePeriod) {
+	public ArrayList<Room> getAvailableRooms () {
 		for(EconomicRoom r : eRoom) {
-			if(r.isAvailable(datePeriod))
+			if(r.isAvailable(new DateReservation(date, date)))
 				availableRooms.add(r);
 		}
 		
 		for(LuxRoom r : lRoom) {
-			if(r.isAvailable(datePeriod))
+			if(r.isAvailable(new DateReservation(date, date)))
 				availableRooms.add(r);
 		}
 		
 		return availableRooms;
 	}
 	
-	public ArrayList<Room> getReservedRooms (DateReservation datePeriod) {
+	/**
+	 * to get reserved rooms base on the time period
+	 * @param datePeriod period of time that user wants to book
+	 * @return a list of Room with reserved rooms
+	 */
+	public ArrayList<Room> getReservedRooms () {
 		for(EconomicRoom r : eRoom) {
-			if(!r.isAvailable(datePeriod))
+			if(!r.isAvailable(new DateReservation(date, date)))
 				reservedRooms.add(r);
 		}
 		
 		for(LuxRoom r : lRoom) {
-			if(!r.isAvailable(datePeriod))
+			if(!r.isAvailable(new DateReservation(date, date)))
 				reservedRooms.add(r);
 		}
 		
