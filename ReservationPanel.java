@@ -4,10 +4,11 @@ import java.time.LocalDate;
 import javax.swing.*;
 
 public class ReservationPanel extends JPanel{
+	JTextField roomNum;
 	public ReservationPanel(RoomList l){
 		setLayout(new BorderLayout());
 		BookingRoomPanel roomDisplay = new BookingRoomPanel(l);
-		JTextField roomNum = new JTextField();
+		roomNum = new JTextField();
 		add(roomDisplay,BorderLayout.NORTH);
 		JPanel container = new JPanel();
 		container.setLayout(new BorderLayout());
@@ -15,5 +16,9 @@ public class ReservationPanel extends JPanel{
 		container.add(roomNum,BorderLayout.CENTER);
 		add(container,BorderLayout.CENTER);
 		l.attach(roomDisplay);
+	}
+	
+	public int getRoomNum() {
+		return Integer.parseInt(roomNum.getText());
 	}
 }

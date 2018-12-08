@@ -1,22 +1,28 @@
 import java.awt.*;
 import javax.swing.*;
-
+/**
+ * This class sets up all required panels and storages in which users can move between panels and
+ * guest users may book reservations which will be stored, and managers can access storage and view
+ * them in two different ways.
+ * @author 
+ *
+ */
 public class MenuFrame extends JFrame{
-	private JPanel guest,main, initial, reserveChoice, viewCancelChoice, managerOptions, managerView;
+	private JPanel guest,main, initial, reserveChoice, viewCancelChoice, receiptChoice, managerOptions, managerView;
 	private LoginPanel login;
 	private SignUpPanel supanel;
 	private JButton guestButton, managerButton, cancel;
-	private Manager managerList; //maybe not necessary now
 	private DatePanel datePicking;
 	private ReservationPanel reservePanel;
 	private Account current;
+	private Receipt selectedReceipt;
+	private ReceiptPanel displayReceipt; 
 	
 	public MenuFrame(){
 		login = new LoginPanel(); //panel when manager button is pressed
 		initial = new JPanel();
 		guest = new JPanel(); //panel when guest button is pressed
 		main = new JPanel(); //panel that opens first
-		managerList = new Manager();
 		
 		
 		
@@ -142,12 +148,10 @@ public class MenuFrame extends JFrame{
 		
 		datePicking.addListenerToSEButton(event ->{		//user selected economic room
 			RoomList.roomList.luxRoom(false);
-			
 		});
 		
 		datePicking.addListenerToSLButton(event ->{		//user selected luxurious room
 			RoomList.roomList.luxRoom(true);
-			
 		});
 		
 		datePicking.addListenerToSButton(event ->{	//show available rooms
@@ -175,8 +179,10 @@ public class MenuFrame extends JFrame{
 		JButton confirm = new JButton("Confirm"), more = new JButton("More Reservations"), done = new JButton("Done"),  econ = new JButton("$100"), lux = new JButton("$300"), change = new JButton("Confirm Change of Date");
 		
 		confirm.addActionListener(event ->{			//add to list of reservations made by person
-			//add to list of reservations
-			//current.reserve();
+			Reservation r = new Reservation();
+			if(RoomList.roomList.getRoom(reservePanel.getRoomNum()) != null)
+			r.addRoom(RoomList.roomList.getRoom(reservePanel.getRoomNum()));
+			current.reserve(r);
 		});
 		
 		more.addActionListener(event ->{			//move back to date picking panel
@@ -189,7 +195,7 @@ public class MenuFrame extends JFrame{
 		
 		done.addActionListener(event ->{		//move onto reciept	
 			getContentPane().removeAll();
-			getContentPane().add(new JPanel()); 
+			getContentPane().add(receiptChoice); 
 			revalidate();
 			repaint();
 			pack();
@@ -203,15 +209,28 @@ public class MenuFrame extends JFrame{
 			RoomList.roomList.luxRoom(true);
 			repaint();
 		});
-		change.addActionListener(event ->{
-			//change date and notify
-			RoomList.roomList.mutator();
-		});
 		JPanel container = new JPanel();
+		JTextField sDate = new JTextField(), eDate = new JTextField();
 		container.setLayout(new GridLayout(3,3));
 		container.add(new JLabel("Start/End Date Change:"));
-		container.add(new JTextField());
-		container.add(new JTextField());
+		
+		change.addActionListener(event ->{
+			//change date and notify
+			if(DateInput.parseDate(sDate.getText()) != null && DateInput.parseDate(eDate.getText()) != null) {
+				if(DateReservation.allowedDates(DateInput.parseDate(sDate.getText()),DateInput.parseDate(eDate.getText()))){
+					RoomList.roomList.setDateReservation(new DateReservation(DateInput.parseDate(sDate.getText()),DateInput.parseDate(eDate.getText())));
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Invalid date entered, no changes have been made.");
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Invalid date entered, no changes have been made.");
+			}
+		});
+		
+		container.add(sDate);
+		container.add(eDate);
 		container.add(econ);
 		container.add(lux);
 		container.add(change);
@@ -222,6 +241,46 @@ public class MenuFrame extends JFrame{
 		
 		//---------------------------------------------------------------------------------------------------------
 		
+		receiptChoice = new JPanel();
+		JButton simple = new JButton("Simple"), comprehensive = new JButton("Comprehensive");
+		simple.addActionListener(event -> {
+			/*selectedReceipt = new SimpleReceipt(current);
+			displayReceipt = new ReceiptPanel(selectedReceipt);
+			getContentPane().removeAll();
+			getContentPane().add(displayReceipt); 
+			revalidate();
+			repaint();*/
+			
+		});
+		
+		comprehensive.addActionListener(event -> {
+			/*selectedReceipt = new ComprehensiveReceipt(current);
+			displayReceipt = new ReceiptPanel(selectedReceipt);
+			getContentPane().removeAll();
+			getContentPane().add(displayReceipt); 
+			revalidate();
+			repaint();*/
+			
+		});
+		receiptChoice.add(new JLabel("Choose a type of receipt:"));
+		receiptChoice.add(simple);
+		receiptChoice.add(comprehensive);
+		
+		//---------------------------------------------------------------------------------------------------------
+		
+		displayReceipt = new ReceiptPanel();
+		displayReceipt.addListener(event -> { //make the button in receipt panel to return to main menu
+			current = null;
+			selectedReceipt = null;
+			displayReceipt = null;
+			getContentPane().removeAll();
+			getContentPane().add(main); 
+			revalidate();
+			repaint();
+			pack();
+		});
+		
+		//---------------------------------------------------------------------------------------------------------
 		managerOptions = new JPanel();
 		JButton load = new JButton("Load"), view = new JButton("View"), save = new JButton("Save"), quit = new JButton("Quit");
 		

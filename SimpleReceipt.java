@@ -12,6 +12,9 @@ public class SimpleReceipt extends Receipt {
   }
 
   protected List<Room> getRooms() {
+	  if(account.getReservation(LocalDate.now()) == null) {
+		  return new ArrayList<Room>();
+	  }
     return account.getReservation(LocalDate.now()).getReservedRooms();
   }
 }

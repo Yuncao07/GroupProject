@@ -121,4 +121,18 @@ public class RoomList {
 		}
 		return selected;
 	}
+	
+	public Room getRoom(int i) {
+		for(Room r : eRoom) {
+			if(r.getRoomNumber() == i) {
+				return r;
+			}
+		}
+		for(Room r : lRoom) {
+			if(r.getRoomNumber() == i) {
+				return r;
+			}
+		}
+		return null;
+	}
 }

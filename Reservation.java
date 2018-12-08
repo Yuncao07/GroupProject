@@ -10,6 +10,7 @@ public class Reservation {
 	private ArrayList<Room> reserveRooms;
 	
 	public Reservation() {
+		dateMakeReservation = LocalDate.now(); //reservation is made on same day as creation of this
 		reserveRooms = new ArrayList<Room>();
 	}
 	
