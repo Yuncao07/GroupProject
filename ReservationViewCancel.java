@@ -15,9 +15,9 @@ public class ReservationViewCancel extends JPanel {
 		}
 		
 		view.setText(text);
-		
+		add(view);
 		JButton cancel = new JButton("Cancel");
-		
+		add(cancel);
 		cancel.addActionListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
