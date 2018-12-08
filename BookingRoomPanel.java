@@ -3,13 +3,22 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import java.util.*;
-
-public class BookingRoomPanel extends JPanel implements ChangeListener{ //Will need to do MVC on this --- not done yet
+/**
+ * Custom Panel that displays the list of available rooms of a certain type
+ * for a date period.
+ * @author Steven Tang
+ *
+ */
+public class BookingRoomPanel extends JPanel implements ChangeListener{
 	private JTextArea rooms;
 	private String text = "";
 	private ArrayList<Room> listOfRooms;
 	private DateReservation stay;
 	private final RoomList l;
+	/**
+	 * Constructs the layout of the panel
+	 * @param list list of rooms that hotel has
+	 */
 	public BookingRoomPanel(RoomList list) {
 		rooms = new JTextArea();
 		rooms.setColumns(40);

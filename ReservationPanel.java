@@ -2,9 +2,17 @@ import java.awt.*;
 import java.time.LocalDate;
 
 import javax.swing.*;
-
+/**
+ * Panel that displays list of available rooms to book based on specified dates and specifications
+ * @author Steven Tang
+ *
+ */
 public class ReservationPanel extends JPanel{
 	JTextField roomNum;
+	/**
+	 * Constructs a custom panel that allows viewing and modication of a reservation
+	 * @param l list of rooms in hotel
+	 */
 	public ReservationPanel(RoomList l){
 		setLayout(new BorderLayout());
 		BookingRoomPanel roomDisplay = new BookingRoomPanel(l);
@@ -17,7 +25,10 @@ public class ReservationPanel extends JPanel{
 		add(container,BorderLayout.CENTER);
 		l.attach(roomDisplay);
 	}
-	
+	/**
+	 * Gets the room number entered by user in the text field
+	 * @return room number entered by user
+	 */
 	public int getRoomNum() {
 		return Integer.parseInt(roomNum.getText());
 	}

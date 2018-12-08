@@ -1,9 +1,8 @@
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Room implements Serializable{
-	private List<DateReservation> bookedDates = new ArrayList<>();
+public abstract class Room {
+	private List<DateReservation> bookedDates = new ArrayList<DateReservation>();
 	protected int roomNumber;
 	protected double price;
 	
@@ -25,7 +24,9 @@ public abstract class Room implements Serializable{
 		}
 		return true;
 	}
-	
+	public ArrayList<DateReservation> getReservationsFromRoom(){
+		return (ArrayList<DateReservation>)bookedDates;
+	}
 	public int getRoomNumber() {
 		return roomNumber;
 	}

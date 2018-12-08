@@ -42,43 +42,58 @@ public class RoomList {
 		
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * This method will set the date in the roomlist to the values passed by the user. 
 	 * This date can then be used to check the availability of the rooms in the room list 
 	 */
+=======
+>>>>>>> df77ff1774de20511407dc744dea0ef3098e4501
 	public void setDate(LocalDate d) {
 		date = d;
 		mutator();
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * @param c is the change listener that is added to the Model. 
 	 */
+=======
+>>>>>>> df77ff1774de20511407dc744dea0ef3098e4501
 	public void attach(ChangeListener c) {
 		listeners.add(c);
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * This method is called every time there is a change in the data that stored in this model class.
 	 */
+=======
+>>>>>>> df77ff1774de20511407dc744dea0ef3098e4501
 	public void mutator() {
 		for(ChangeListener c : listeners) {
 			c.stateChanged(new ChangeEvent(this));
 		}
 	}
+<<<<<<< HEAD
 
 	/**
 	 * This method will create an object that will hold the reservation dates. 
 	 * This date can then be used to check the availability of the rooms in the room list 
 	 */
+=======
+>>>>>>> df77ff1774de20511407dc744dea0ef3098e4501
 	public void setDateReservation(DateReservation d) {
 		period = d;
 		mutator();
 	}
+<<<<<<< HEAD
 
 	/**
 	 * @return an object containing the reservation dates. 
 	 */
+=======
+>>>>>>> df77ff1774de20511407dc744dea0ef3098e4501
 	public DateReservation getDateReservation() {
 		return period;
 	}
@@ -122,9 +137,12 @@ public class RoomList {
 		return reservedRooms;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * To check if the room is a luxury room. 
 	 */
+=======
+>>>>>>> df77ff1774de20511407dc744dea0ef3098e4501
 	public void luxRoom(boolean b) {
 		isLuxRoom = b;
 		mutator();
@@ -135,11 +153,14 @@ public class RoomList {
 	public ArrayList<LuxRoom> getLuxRoomList(){
 		return lRoom;
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * To return a list of rooms selected by the user for a particular date 
 	 * @param datePeriod the chosen period of date. 
 	 */
+=======
+>>>>>>> df77ff1774de20511407dc744dea0ef3098e4501
 	public ArrayList<Room> getChosenAvailableRooms(DateReservation datePeriod){
 		ArrayList<Room> selected = new ArrayList<>();
 		if(isLuxRoom) {
@@ -157,10 +178,13 @@ public class RoomList {
 		return selected;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * @param i the specific room number requested by the user. 
 	 * @return The object of the room requested  by the user. 
 	 */
+=======
+>>>>>>> df77ff1774de20511407dc744dea0ef3098e4501
 	public Room getRoom(int i) {
 		for(Room r : eRoom) {
 			if(r.getRoomNumber() == i) {
