@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Account {
+public class Account implements Serializable {
 	private String ID;
 	private String password;
 	private String fullName;
