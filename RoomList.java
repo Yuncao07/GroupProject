@@ -9,6 +9,8 @@ import java.util.*;
 import javax.swing.event.*;
 
 public class RoomList {
+	public static RoomList roomList = new RoomList();
+
 	private ArrayList<EconomicRoom> eRoom;
 	private ArrayList<LuxRoom> lRoom;
 	private ArrayList<Room> availableRooms, reservedRooms;
@@ -21,7 +23,7 @@ public class RoomList {
 	 * Instances a RoomList with 10 economic rooms 
 	 * 	and 10 luxury rooms with it's number
 	 */
-	public RoomList() {
+	private RoomList() {
 		eRoom = new ArrayList<EconomicRoom>();
 		lRoom = new ArrayList<LuxRoom>();
 		availableRooms = new ArrayList<Room>();

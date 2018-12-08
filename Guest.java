@@ -1,9 +1,11 @@
 import java.util.*;
 
 public class Guest {
+	public static final Guest guest = new Guest();
+
 	private ArrayList<Account> accounts;
 	
-	public Guest(){
+	private Guest(){
 		accounts = new ArrayList<Account>();
 	}
 	

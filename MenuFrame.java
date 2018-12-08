@@ -6,11 +6,9 @@ public class MenuFrame extends JFrame{
 	private LoginPanel login;
 	private SignUpPanel supanel;
 	private JButton guestButton, managerButton, cancel;
-	private Guest guestList;
 	private Manager managerList; //maybe not necessary now
 	private DatePanel datePicking;
 	private ReservationPanel reservePanel;
-	private RoomList list;
 	private Account current;
 	
 	public MenuFrame(){
@@ -18,9 +16,7 @@ public class MenuFrame extends JFrame{
 		initial = new JPanel();
 		guest = new JPanel(); //panel when guest button is pressed
 		main = new JPanel(); //panel that opens first
-		guestList = new Guest();
 		managerList = new Manager();
-		list = new RoomList();
 		
 		
 		
@@ -60,8 +56,8 @@ public class MenuFrame extends JFrame{
 				getContentPane().add(managerOptions); //go to jpanel with manager options
 			}
 			else {
-				if(guestList.verify(user, pass)) {
-					current = guestList.getAccount(user, pass);
+				if(Guest.guest.verify(user, pass)) {
+					current = Guest.guest.getAccount(user, pass);
 					getContentPane().removeAll();
 					getContentPane().add(reserveChoice);
 				}
@@ -101,7 +97,7 @@ public class MenuFrame extends JFrame{
 		});
 		
 		createAccount.addActionListener(event -> {			//directs user to log in
-			guestList.addGuest(new Account(supanel.getUser(),supanel.getPass(),supanel.getName()));
+			Guest.guest.addGuest(new Account(supanel.getUser(),supanel.getPass(),supanel.getName()));
 			getContentPane().removeAll();
 			getContentPane().add(login);
 			revalidate();
@@ -145,11 +141,11 @@ public class MenuFrame extends JFrame{
 		datePicking = new DatePanel();
 		
 		datePicking.addListenerToSEButton(event ->{		//user selected economic room
-			list.luxRoom(false);
+			RoomList.roomList.luxRoom(false);
 		});
 		
 		datePicking.addListenerToSLButton(event ->{		//user selected luxurious room
-			list.luxRoom(true);
+			RoomList.roomList.luxRoom(true);
 		});
 		
 		datePicking.addListenerToSButton(event ->{	//show available rooms
@@ -216,7 +212,7 @@ public class MenuFrame extends JFrame{
 		
 		view.addActionListener(event ->{
 			getContentPane().removeAll();
-			getContentPane().add(new AvailableRoomViewPanel(list), BorderLayout.NORTH);
+			getContentPane().add(new AvailableRoomViewPanel(RoomList.roomList), BorderLayout.NORTH);
 			revalidate();
 			repaint();
 			pack();
