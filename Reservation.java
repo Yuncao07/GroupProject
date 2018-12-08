@@ -3,10 +3,11 @@
  * 	and list of stays
  * @author Yun Cao
  */
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Reservation {
+public class Reservation implements Serializable{
 	private LocalDate dateMakeReservation;
 	private ArrayList<Room> reserveRooms;
 	/**
