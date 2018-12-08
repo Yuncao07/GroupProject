@@ -142,15 +142,18 @@ public class MenuFrame extends JFrame{
 		
 		datePicking.addListenerToSEButton(event ->{		//user selected economic room
 			RoomList.roomList.luxRoom(false);
+			mutator();
 		});
 		
 		datePicking.addListenerToSLButton(event ->{		//user selected luxurious room
 			RoomList.roomList.luxRoom(true);
+			mutator();
 		});
 		
 		datePicking.addListenerToSButton(event ->{	//show available rooms
 			if(DateInput.parseDate(datePicking.getStart()) != null && DateInput.parseDate(datePicking.getEnd()) != null) {
 				if(DateReservation.allowedDates(DateInput.parseDate(datePicking.getStart()),DateInput.parseDate(datePicking.getEnd()))){
+					RoomList.roomList.setReservationDate(new DateReservation(DateInput.parseDate(datePicking.getStart()),DateInput.parseDate(datePicking.getEnd())));
 					getContentPane().removeAll();
 					getContentPane().add(reservePanel); //add reservation date here
 					revalidate();
@@ -191,11 +194,31 @@ public class MenuFrame extends JFrame{
 			repaint();
 			pack();
 		});
-		JPanel buttonContainer = new JPanel();
-		buttonContainer.add(confirm);
-		buttonContainer.add(more);
-		buttonContainer.add(done);
-		reservePanel.add(buttonContainer,BorderLayout.SOUTH);
+		econ.addActionListener(event ->{
+			RoomList.roomList.luxRoom(false);
+			RoomList.roomList.mutator();
+		});
+		
+		lux.addActionListener(event ->{
+			RoomList.roomList.luxRoom(true);
+			RoomList.roomList.mutator();
+		});
+		change.addActionListener(event ->{
+			//change date and notify
+			RoomList.roomList.mutator();
+		});
+		JPanel container = new JPanel();
+		container.setLayout(new GridLayout(3,3));
+		container.add(new JLabel("Start/End Date Change:"));
+		container.add(new JTextField());
+		container.add(new JTextField());
+		container.add(econ);
+		container.add(lux);
+		container.add(change);
+		container.add(confirm);
+		container.add(more);
+		container.add(done);
+		reservePanel.add(container,BorderLayout.SOUTH);
 		
 		//---------------------------------------------------------------------------------------------------------
 		
