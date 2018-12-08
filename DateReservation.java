@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 /**
  * A data type that holds a starting date and an ending date period with fuctionality
@@ -5,7 +6,7 @@ import java.time.LocalDate;
  * @author 
  *
  */
-public class DateReservation {
+public class DateReservation implements Serializable{
 	private LocalDate startDate;
 	private LocalDate endDate;
 	/**

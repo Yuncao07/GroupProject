@@ -186,6 +186,7 @@ public class MenuFrame extends JFrame{
 			if(RoomList.roomList.getRoom(reservePanel.getRoomNum()) != null)
 			r.addRoom(RoomList.roomList.getRoom(reservePanel.getRoomNum()));
 			current.reserve(r);
+			Guest.guest.writeToFile();
 		});
 		
 		more.addActionListener(event ->{			//move back to date picking panel
@@ -306,11 +307,12 @@ public class MenuFrame extends JFrame{
 		});
 		
 		save.addActionListener(event ->{
-			//write to text file of reservations
+			Guest.guest.writeToFile();
 		});
 		
 		quit.addActionListener(event ->{
 			//save then quit
+			Guest.guest.writeToFile();
 			System.exit(0);
 		});
 		
