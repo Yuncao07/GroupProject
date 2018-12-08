@@ -19,6 +19,10 @@ public class AvailableRoomViewPanel extends JPanel {
 	private final String secondLine = "Available rooms: ";
 	private final String thirdLine = "Reserved rooms: ";
 
+	/**
+	 * instances a view of "view by date" choice 
+	 * @param list
+	 */
 	public AvailableRoomViewPanel(RoomList list) {
 		final RoomList roomList = list;
 		roomInfoView = new JPanel();
@@ -65,7 +69,6 @@ public class AvailableRoomViewPanel extends JPanel {
 			}
 		});
 		setPreferredSize(new Dimension(900, 300));
-		// setLayout(new BorderLayout());
 		add(calendarView);
 		add(roomInfoView);
 	}

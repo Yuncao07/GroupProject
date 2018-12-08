@@ -13,10 +13,14 @@ public class CancelPanel extends JPanel {
 	private JLabel instruction = new JLabel("Enter the date you want to cancel (mm/dd/yy)");
 	private JTextField getCancelReservation = new JTextField(); 
 	private JButton done = new JButton("Done");
+	/**
+	 * deletes reservation made using a date that user makes reservation
+	 * @param reList list of Reservations 
+	 */
 	public CancelPanel(ArrayList<Reservation> reList){
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-		add(getCancelReservation);
 		add(instruction);
+		add(getCancelReservation);
 		add(done);
 		done.addActionListener(new ActionListener() {
 			@Override
