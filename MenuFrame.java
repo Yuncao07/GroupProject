@@ -295,6 +295,7 @@ public class MenuFrame extends JFrame{
 		view.addActionListener(event ->{
 			getContentPane().removeAll();
 			getContentPane().add(new AvailableRoomViewPanel(RoomList.roomList), BorderLayout.NORTH);
+			getContentPane().add(new ClickableRoomPanel(RoomList.roomList),BorderLayout.SOUTH);
 			revalidate();
 			repaint();
 			pack();
@@ -306,6 +307,7 @@ public class MenuFrame extends JFrame{
 		});
 		
 		quit.addActionListener(event ->{
+			//save then quit
 			System.exit(0);
 		});
 		

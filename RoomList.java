@@ -68,6 +68,7 @@ public class RoomList {
 	 * @return a list of Room with available rooms
 	 */
 	public ArrayList<Room> getAvailableRooms () {
+		availableRooms.clear(); //Necessary otherwise we would add duplicate rooms
 		for(EconomicRoom r : eRoom) {
 			if(r.isAvailable(new DateReservation(date, date)))
 				availableRooms.add(r);
@@ -87,6 +88,7 @@ public class RoomList {
 	 * @return a list of Room with reserved rooms
 	 */
 	public ArrayList<Room> getReservedRooms () {
+		reservedRooms.clear(); //Necessary if called multiple times since otherwise we would add duplicate rooms
 		for(EconomicRoom r : eRoom) {
 			if(!r.isAvailable(new DateReservation(date, date)))
 				reservedRooms.add(r);
@@ -104,7 +106,12 @@ public class RoomList {
 		isLuxRoom = b;
 		mutator();
 	}
-	
+	public ArrayList<EconomicRoom> getEconRoomList(){
+		return eRoom;
+	}
+	public ArrayList<LuxRoom> getLuxRoomList(){
+		return lRoom;
+	}
 	public ArrayList<Room> getChosenAvailableRooms(DateReservation datePeriod){
 		ArrayList<Room> selected = new ArrayList<>();
 		if(isLuxRoom) {
