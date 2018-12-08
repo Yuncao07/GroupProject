@@ -142,18 +142,18 @@ public class MenuFrame extends JFrame{
 		
 		datePicking.addListenerToSEButton(event ->{		//user selected economic room
 			RoomList.roomList.luxRoom(false);
-			mutator();
+			
 		});
 		
 		datePicking.addListenerToSLButton(event ->{		//user selected luxurious room
 			RoomList.roomList.luxRoom(true);
-			mutator();
+			
 		});
 		
 		datePicking.addListenerToSButton(event ->{	//show available rooms
 			if(DateInput.parseDate(datePicking.getStart()) != null && DateInput.parseDate(datePicking.getEnd()) != null) {
 				if(DateReservation.allowedDates(DateInput.parseDate(datePicking.getStart()),DateInput.parseDate(datePicking.getEnd()))){
-					RoomList.roomList.setReservationDate(new DateReservation(DateInput.parseDate(datePicking.getStart()),DateInput.parseDate(datePicking.getEnd())));
+					RoomList.roomList.setDateReservation(new DateReservation(DateInput.parseDate(datePicking.getStart()),DateInput.parseDate(datePicking.getEnd())));
 					getContentPane().removeAll();
 					getContentPane().add(reservePanel); //add reservation date here
 					revalidate();
@@ -171,8 +171,8 @@ public class MenuFrame extends JFrame{
 		
 		//---------------------------------------------------------------------------------------------------------
 		
-		reservePanel = new ReservationPanel();
-		JButton confirm = new JButton("Confirm"), more = new JButton("More Reservations"), done = new JButton("Done");
+		reservePanel = new ReservationPanel(RoomList.roomList);
+		JButton confirm = new JButton("Confirm"), more = new JButton("More Reservations"), done = new JButton("Done"),  econ = new JButton("$100"), lux = new JButton("$300"), change = new JButton("Confirm Change of Date");
 		
 		confirm.addActionListener(event ->{			//add to list of reservations made by person
 			//add to list of reservations
@@ -196,12 +196,12 @@ public class MenuFrame extends JFrame{
 		});
 		econ.addActionListener(event ->{
 			RoomList.roomList.luxRoom(false);
-			RoomList.roomList.mutator();
+			repaint();
 		});
 		
 		lux.addActionListener(event ->{
 			RoomList.roomList.luxRoom(true);
-			RoomList.roomList.mutator();
+			repaint();
 		});
 		change.addActionListener(event ->{
 			//change date and notify

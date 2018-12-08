@@ -57,6 +57,7 @@ public class RoomList {
 	}
 	public void setDateReservation(DateReservation d) {
 		period = d;
+		mutator();
 	}
 	public DateReservation getDateReservation() {
 		return period;
@@ -101,21 +102,23 @@ public class RoomList {
 	
 	public void luxRoom(boolean b) {
 		isLuxRoom = b;
+		mutator();
 	}
 	
 	public ArrayList<Room> getChosenAvailableRooms(DateReservation datePeriod){
+		ArrayList<Room> selected = new ArrayList<>();
 		if(isLuxRoom) {
 			for(LuxRoom r : lRoom) {
 				if(r.isAvailable(datePeriod))
-					availableRooms.add(r);
+					selected.add(r);
 			}
 		}
 		else {
 			for(EconomicRoom r : eRoom) {
 				if(r.isAvailable(datePeriod))
-					availableRooms.add(r);
+					selected.add(r);
 			}
 		}
-		return availableRooms;
+		return selected;
 	}
 }
