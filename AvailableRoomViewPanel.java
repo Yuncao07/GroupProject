@@ -27,7 +27,7 @@ public class AvailableRoomViewPanel extends JPanel {
 
 		list.attach((ChangeEvent e) -> {
 			String availableRooms = roomList.getAvailableRooms().stream().map(room -> room.getRoomNumber() + "")
-					.collect(Collectors.joining(", "));
+					.collect(Collectors.joining(" "));
 
 			String reservedRooms = roomList.getReservedRooms().stream()
 					.map(room -> {
