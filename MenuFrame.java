@@ -4,7 +4,7 @@ import javax.swing.*;
  * This class sets up all required panels and storages in which users can move between panels and
  * guest users may book reservations which will be stored, and managers can access storage and view
  * them in two different ways.
- * @author 
+ * @author Steven Tang
  *
  */
 public class MenuFrame extends JFrame{
@@ -18,6 +18,9 @@ public class MenuFrame extends JFrame{
 	private Receipt selectedReceipt;
 	private ReceiptPanel displayReceipt; 
 	
+	/**
+	 * This creates a menu that the user can move around the program with.
+	 */
 	public MenuFrame(){
 		login = new LoginPanel(); //panel when manager button is pressed
 		initial = new JPanel();
@@ -244,22 +247,22 @@ public class MenuFrame extends JFrame{
 		receiptChoice = new JPanel();
 		JButton simple = new JButton("Simple"), comprehensive = new JButton("Comprehensive");
 		simple.addActionListener(event -> {
-			/*selectedReceipt = new SimpleReceipt(current);
+			selectedReceipt = new SimpleReceipt(current);
 			displayReceipt = new ReceiptPanel(selectedReceipt);
 			getContentPane().removeAll();
 			getContentPane().add(displayReceipt); 
 			revalidate();
-			repaint();*/
+			repaint();
 			
 		});
 		
 		comprehensive.addActionListener(event -> {
-			/*selectedReceipt = new ComprehensiveReceipt(current);
+			selectedReceipt = new ComprehensiveReceipt(current);
 			displayReceipt = new ReceiptPanel(selectedReceipt);
 			getContentPane().removeAll();
 			getContentPane().add(displayReceipt); 
 			revalidate();
-			repaint();*/
+			repaint();
 			
 		});
 		receiptChoice.add(new JLabel("Choose a type of receipt:"));

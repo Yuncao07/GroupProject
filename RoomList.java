@@ -46,6 +46,7 @@ public class RoomList {
 		date = d;
 		mutator();
 	}
+	
 	public void attach(ChangeListener c) {
 		listeners.add(c);
 	}

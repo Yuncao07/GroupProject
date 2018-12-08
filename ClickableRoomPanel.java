@@ -1,11 +1,20 @@
 import java.awt.*;
 import java.util.ArrayList;
-
 import javax.swing.*;
-
+/**
+ * This panel uses the room list model to display room information based on
+ * the room number clicked.
+ * @author Steven Tang
+ * 
+ */
 public class ClickableRoomPanel extends JPanel{
 	JPanel roomClick, roomInfo;
 	int currentRoom;
+	
+	/**
+	 * Constructs a panel with buttons that change the view text area.
+	 * @param list list of rooms that exist
+	 */
 	public ClickableRoomPanel(RoomList list) {
 		final RoomList l = list;
 		roomClick = new JPanel();
@@ -32,7 +41,7 @@ public class ClickableRoomPanel extends JPanel{
 		roomInfoDisplay.setPreferredSize(new Dimension(250,250));
 		l.attach(event ->{
 			String text = "";
-			text = text.concat("Room Number: " + currentRoom);
+			text = text.concat("Room Number: " + currentRoom + "\nRoom Price: " + (int)l.getRoom(currentRoom).getPrice() + "\n\nReservations: ");
 			ArrayList<DateReservation> info = l.getRoom(currentRoom).getReservationsFromRoom();
 			for(DateReservation dr : info) {
 				text = text.concat(dr.toString() + "\n");
