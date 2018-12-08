@@ -41,6 +41,7 @@ public class RoomList {
 	
 	public void setDate(LocalDate d) {
 		date = d;
+		mutator();
 	}
 	public void attach(ChangeListener c) {
 		listeners.add(c);
