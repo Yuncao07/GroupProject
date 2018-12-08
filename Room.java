@@ -10,10 +10,6 @@ public abstract class Room {
 		this.roomNumber = roomNumber;
 	}
 	
-	public void addReservation(DateReservation d) {
-		bookedDates.add(d);
-	}
-	
 	public boolean isAvailable(DateReservation checkingDate) {
 		for(DateReservation d : bookedDates) {
 			boolean startingDateInRange = checkingDate.getStartDate().compareTo(d.getStartDate()) >= 0 && 

@@ -29,6 +29,14 @@ public class Account {
 	public void reserve(Reservation r) {
 		reservationList.add(r);
 	}
+	
+	public void cancel(Reservation r) {
+		for(int i = reservationList.size(); i >= 0; i--) {
+			if(reservationList.get(i) == r)
+				reservationList.remove(i);
+				
+		}
+	}
 	/**
 	 * to access reservation made in a specific date
 	 * @param d the date someone makes reservation

@@ -2,10 +2,10 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MenuFrame extends JFrame{
-	private JPanel guest,main, initial, reserveChoice, managerOptions, managerView;
+	private JPanel guest,main, initial, reserveChoice, viewCancelChoice, managerOptions, managerView;
 	private LoginPanel login;
 	private SignUpPanel supanel;
-	private JButton guestButton,managerButton;
+	private JButton guestButton, managerButton, cancel;
 	private Guest guestList;
 	private Manager managerList; //maybe not necessary now
 	private DatePanel datePicking;
@@ -31,8 +31,7 @@ public class MenuFrame extends JFrame{
 		guestButton = new JButton("Guest Login");
 		managerButton = new JButton("Manager Login");
 		
-		guestButton.addActionListener(event -> 				//moves user to guest section of program
-		{
+		guestButton.addActionListener(event -> {			//moves user to guest section of program
 			login.manager(false);
 			getContentPane().removeAll();
 			getContentPane().add(guest);
@@ -41,8 +40,7 @@ public class MenuFrame extends JFrame{
 			pack();
 		});
 		
-		managerButton.addActionListener(event -> 			//moves user to manager section of program
-		{
+		managerButton.addActionListener(event -> {			//moves user to manager section of program
 			login.manager(true);
 			getContentPane().removeAll();
 			getContentPane().add(managerOptions);
@@ -128,8 +126,15 @@ public class MenuFrame extends JFrame{
 			pack();
 		});
 		
+		viewCancelChoice = new JPanel();
+		viewCancelChoice.setLayout(new BorderLayout());
+		cancel = new JButton();
 		viewOrCancel.addActionListener(event ->{	//allow this guest to check reservations and cancel if needed
-			
+			getContentPane().removeAll();
+			getContentPane().add(viewCancelChoice);
+			revalidate();
+			repaint();
+			pack();
 		});
 		
 		reserveChoice.add(make);
@@ -210,7 +215,11 @@ public class MenuFrame extends JFrame{
 		managerView.setLayout(new BorderLayout());
 		
 		view.addActionListener(event ->{
-			managerView.add(new AvailableRoomViewPanel(list), BorderLayout.NORTH);
+			getContentPane().removeAll();
+			getContentPane().add(new AvailableRoomViewPanel(list), BorderLayout.NORTH);
+			revalidate();
+			repaint();
+			pack();
 			//add room clickable panel here with BorderLaybout.SOUTH
 		});
 		

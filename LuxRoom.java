@@ -1,6 +1,8 @@
 public class LuxRoom extends Room {
-	static final double PRICE = 300.0;
-	private double price = PRICE;
+	
+	public double getPrice() {
+		return 300.0;
+	}
 	
 	public LuxRoom(int roomNum) {
 		super(roomNum);

@@ -29,8 +29,10 @@ public abstract class Month extends JPanel implements DatePicker {
 		displayPanel = getDisplayPanel();
 		monthDaysPanel = getMonthDaysPanel();
 
-		add(displayPanel);
-		add(monthDaysPanel);
+		setLayout(new BorderLayout());
+
+		add(displayPanel, BorderLayout.NORTH);
+		add(monthDaysPanel, BorderLayout.SOUTH);
 	}
 
 	private JPanel getDisplayPanel() {
@@ -128,17 +130,17 @@ public abstract class Month extends JPanel implements DatePicker {
 		}
 	}
 
-//	public static void main(final String[] args) {
-//		final JFrame dateFrame = new JFrame();
-//		dateFrame.setSize(500, 500);
-//		dateFrame.add(new Month() {
-//			@Override
-//			public void onDateSelected(LocalDate date) {
-//				System.out.printf("Selected %d/%d/%d", date.getMonthValue(), date.getDayOfMonth(), date.getYear());
-//			}
-//		});
-//
-//		dateFrame.setVisible(true);
-//		dateFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	}
+	public static void main(final String[] args) {
+		final JFrame dateFrame = new JFrame();
+		dateFrame.setSize(500, 500);
+		dateFrame.add(new Month() {
+			@Override
+			public void onDateSelected(LocalDate date) {
+				System.out.printf("Selected %d/%d/%d", date.getMonthValue(), date.getDayOfMonth(), date.getYear());
+			}
+		});
+
+		dateFrame.setVisible(true);
+		dateFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 }

@@ -10,7 +10,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class AvailableRoomViewPanel extends JPanel {
-	private JLabel dateString;
+
 	private JPanel roomInfoView, calendarView;
 	private JTextArea view;
 	private String firstLine = "Room Information\n";
@@ -47,7 +47,7 @@ public class AvailableRoomViewPanel extends JPanel {
 			}
 		};
 		list.attach(l);
-		roomInfoView.add(dateString, BorderLayout.NORTH);
+		//roomInfoView.add(dateString, BorderLayout.NORTH);
 		roomInfoView.add(view, BorderLayout.CENTER);
 		
 		calendarView = new JPanel();
