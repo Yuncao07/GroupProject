@@ -16,7 +16,7 @@ public class RoomList {
 	private ArrayList<Room> availableRooms, reservedRooms;
 	private ArrayList<ChangeListener> listeners;
 	private LocalDate date;
-	
+	private DateReservation period;
 	private boolean isLuxRoom;
 
 	/**
@@ -24,6 +24,7 @@ public class RoomList {
 	 * 	and 10 luxury rooms with it's number
 	 */
 	private RoomList() {
+		period = new DateReservation(LocalDate.now(),LocalDate.now());
 		eRoom = new ArrayList<EconomicRoom>();
 		lRoom = new ArrayList<LuxRoom>();
 		availableRooms = new ArrayList<Room>();
@@ -54,7 +55,12 @@ public class RoomList {
 			c.stateChanged(new ChangeEvent(this));
 		}
 	}
-	
+	public void setDateReservation(DateReservation d) {
+		period = d;
+	}
+	public DateReservation getDateReservation() {
+		return period;
+	}
 	/**
 	 * to get available rooms base on the time period
 	 * @param datePeriod period of time that user wants to book
