@@ -14,6 +14,11 @@ import java.util.regex.Pattern;
 public abstract class DateInput extends JPanel implements ActionListener, DatePicker {
 	final JTextField inputField;
 
+	/**
+	 * parse a string into a valid date
+	 * @param text the date in type string needs to be converted
+	 * @return a valid date
+	 */
 	public static LocalDate parseDate(final String text) {
 		final Pattern pattern = Pattern.compile("(\\d{1,2})[/-](\\d{1,2})[/-](\\d{2,4})");
 		final Matcher matcher = pattern.matcher(text);
@@ -24,6 +29,9 @@ public abstract class DateInput extends JPanel implements ActionListener, DatePi
 				Integer.parseInt(matcher.group(2)));
 	}
 
+	/**
+	 * Instances calendar days
+	 */
 	DateInput() {
 		inputField = new JTextField(10);
 		inputField.addActionListener(this);
@@ -41,17 +49,4 @@ public abstract class DateInput extends JPanel implements ActionListener, DatePi
 		repaint();
 	}
 
-//	public static void main(final String[] args) {
-//		final JFrame dateFrame = new JFrame();
-//		dateFrame.setSize(500, 500);
-//		dateFrame.add(new DateInput() {
-//			@Override
-//			public void onDateSelected(LocalDate date) {
-//				System.out.printf("Selected %d/%d/%d", date.getMonthValue(), date.getDayOfMonth(), date.getYear());
-//			}
-//		});
-//
-//		dateFrame.setVisible(true);
-//		dateFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	}
 }
