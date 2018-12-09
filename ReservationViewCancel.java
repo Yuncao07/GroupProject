@@ -1,31 +1,37 @@
-import java.awt.BorderLayout;
+/**
+ * The panel show reservations the user made and let user cancel
+ * @author Yun Cao
+ */
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
 
 public class ReservationViewCancel extends JPanel {
 	private JTextArea view = new JTextArea();
-	private CancelPanel cancelPanel;
 	
+	/**
+	 * makes an instance of view/cancel panel
+	 * @param rList list of reservations to show
+	 */
 	ReservationViewCancel(ArrayList<Reservation> rList) {
-		String text = "Your reservations: \n";
+		String text = "You have reservations on: \n";
 		for(Reservation r : rList) {
 			for(Room room : r.getReservedRooms())
-				text += r.getDateReserve().toString() + room.getRoomNumber();
+				text += r.getDateReserve().toString() + " with room: " + room.getRoomNumber();
 		}
 		
+		view.setPreferredSize(new Dimension(500, 500));
 		view.setText(text);
 		add(view);
 		JButton cancel = new JButton("Cancel");
 		add(cancel);
-		cancel.addActionListener(new ActionListener () {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				cancelPanel = new CancelPanel(rList);
-				
-			}
-			
-		});;
+		cancel.addActionListener((ActionEvent arg0) -> {
+				JFrame cancelFrame = new JFrame();
+				cancelFrame.add(new CancelPanel(rList));
+				cancelFrame.pack();
+				cancelFrame.setVisible(true);
+				cancelFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			});
 	}
 }
