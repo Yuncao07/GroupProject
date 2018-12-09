@@ -2,6 +2,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 /**
  * This is an abstract class that defines certain methods that are required by receipts. 
  * It will define how the text will look in the header, body and footer of the receipt 
@@ -13,7 +14,6 @@ public abstract class Receipt {
 	 * @return a string showing the kind of receipt. 
 	 */
 	abstract String getReportType();
-
 	protected Account account;
 
 	
@@ -42,7 +42,6 @@ public abstract class Receipt {
 					.map(reservation -> reservation.getReservedRooms().stream()
 								.map(room -> {
 									int reservationLength = reservation.getDaysRoomReserved(room);
-
 									return String.format("Reserved room %d for $%s X %d = %s",
 												room.getRoomNumber(),
 												DECIMAL_FORMAT.format(room.getPrice()),
@@ -66,7 +65,7 @@ public abstract class Receipt {
 	}
 	
 	/**
-	 * The method returns a list of rooms that have to be shown in the reciept 
+	 * The method returns a list of reservations that have to be shown in the receipt 
 	 * @return a list of Rooms. 
 	 */
 	protected abstract List<Reservation> getReservations();

@@ -22,7 +22,7 @@ public class SimpleReceipt extends Receipt {
 	}
 	
 	/**
-	 * This method returns a list of rooms that were booked by a user under a single reservation date. 
+	 * This method returns a list of reservations that were booked by a user today 
 	 */
 	protected List<Reservation> getReservations() {
 		if(account.getReservations(LocalDate.now()) == null) {
