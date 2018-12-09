@@ -308,6 +308,7 @@ public class MenuFrame extends JFrame{
 		
 		save.addActionListener(event ->{
 			Guest.guest.writeToFile();
+			//write to text file of reservations
 		});
 		
 		quit.addActionListener(event ->{
