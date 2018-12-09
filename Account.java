@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.util.*;
 /**
  * Stores the information of a user and the reservations that they made
- * @author 
+ * @author Yun Cao
  *
  */
 public class Account implements Serializable{

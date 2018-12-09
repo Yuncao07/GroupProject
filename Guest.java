@@ -1,6 +1,11 @@
 import java.io.*;
 import java.util.*;
-
+/**
+ * Class that allows storage and access of the users that have signed up in the program
+ * as well as writing to a serialized file
+ * @author Yun Cao
+ *
+ */
 public class Guest implements Serializable {
 	private static final String filename = "reservations.txt";
 	public static Guest guest = null;
@@ -21,7 +26,9 @@ public class Guest implements Serializable {
 				guest = new Guest();
 		}
 	}
-
+	/**
+	 * Writes the list of guests into a serialized file
+	 */
 	public static void writeToFile() {
 		try {
 			File outputFile = new File(filename);
@@ -60,7 +67,12 @@ public class Guest implements Serializable {
 	public ArrayList<Account> getGuests() {
 		return accounts;
 	}
-
+	/**
+	 * Returns an account using specified username and password given
+	 * @param username username of account being accessed
+	 * @param password password of account being accessed
+	 * @return the account being accessed if password and username are verified, false otherwise
+	 */
 	public Account getAccount(String username, String password) {
 		Account acct = null;
 		for (Account a : accounts) {
