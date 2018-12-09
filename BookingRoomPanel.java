@@ -34,7 +34,9 @@ public class BookingRoomPanel extends JPanel implements ChangeListener{
 		rooms.setEditable(false);
 		add(rooms);
 	}
-	
+	/**
+	 * Updates the text of what rooms are available when changing reservation dates
+	 */
 	public void stateChanged(ChangeEvent e) {
 		text = l.getDateReservation().toString() + "\nRooms Available:\n";
 		listOfRooms = l.getChosenAvailableRooms(l.getDateReservation());

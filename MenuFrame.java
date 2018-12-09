@@ -8,7 +8,7 @@ import javax.swing.*;
  *
  */
 public class MenuFrame extends JFrame{
-	private JPanel guest,main, initial, reserveChoice, viewCancelChoice, receiptChoice, managerOptions, managerView;
+	private JPanel guest,main, initial, reserveChoice, receiptChoice, managerOptions, managerView;
 	private LoginPanel login;
 	private SignUpPanel supanel;
 	private JButton guestButton, managerButton, cancel;

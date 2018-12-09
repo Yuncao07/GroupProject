@@ -1,4 +1,3 @@
-
 /**
  * @author Yun Cao
  * The panel for manager's calendar view
@@ -21,7 +20,7 @@ public class AvailableRoomViewPanel extends JPanel {
 
 	/**
 	 * instances a view of "view by date" choice 
-	 * @param list
+	 * @param list list of rooms
 	 */
 	public AvailableRoomViewPanel(RoomList list) {
 		final RoomList roomList = list;
