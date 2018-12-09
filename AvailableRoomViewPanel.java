@@ -1,4 +1,3 @@
-
 /**
  * @author Yun Cao
  * The panel for manager's calendar view
@@ -7,11 +6,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class AvailableRoomViewPanel extends JPanel {
 	private JPanel roomInfoView, calendarView;
@@ -21,7 +18,7 @@ public class AvailableRoomViewPanel extends JPanel {
 
 	/**
 	 * instances a view of "view by date" choice 
-	 * @param list
+	 * @param list list of rooms
 	 */
 	public AvailableRoomViewPanel(RoomList list) {
 		final RoomList roomList = list;

@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.time.LocalDate;
 import javax.swing.*;
 /**
  * This class sets up all required panels and storages in which users can move between panels and
@@ -8,15 +9,13 @@ import javax.swing.*;
  *
  */
 public class MenuFrame extends JFrame{
-	private JPanel guest,main, initial, reserveChoice, viewCancelChoice, receiptChoice, managerOptions, managerView;
+	private JPanel guest,main, initial, reserveChoice, receiptChoice, managerOptions, managerView;
 	private LoginPanel login;
 	private SignUpPanel supanel;
 	private JButton guestButton, managerButton, cancel;
 	private DatePanel datePicking;
 	private ReservationPanel reservePanel;
 	private Account current;
-	private Receipt selectedReceipt;
-	private ReceiptPanel displayReceipt; 
 	private ReservationViewCancel viewCancel;
 	
 	/**
@@ -134,7 +133,22 @@ public class MenuFrame extends JFrame{
 		
 
 		viewOrCancel.addActionListener(event ->{	//allow this guest to check reservations and cancel if needed
-			viewCancel = new ReservationViewCancel(current.getReservationList());
+			viewCancel = new ReservationViewCancel(current.getReservationList()) {
+				@Override
+				public void returnToHome() {
+					getContentPane().removeAll();
+					getContentPane().add(initial);
+					revalidate();
+					repaint();
+					pack();
+				}
+
+				@Override
+				public void cancelReservationsOnDay(LocalDate date) {
+					Guest.guest.cancelReservations(current, date);
+					Guest.guest.writeToFile();
+				}
+			};
 			getContentPane().removeAll();
 			getContentPane().add(viewCancel);
 			revalidate();
@@ -149,29 +163,29 @@ public class MenuFrame extends JFrame{
 		
 		datePicking = new DatePanel();
 		
-		datePicking.addListenerToSEButton(event ->{		//user selected economic room
+		datePicking.addListenerToSEButton(event -> {		//user selected economic room
 			RoomList.roomList.luxRoom(false);
 		});
 		
-		datePicking.addListenerToSLButton(event ->{		//user selected luxurious room
+		datePicking.addListenerToSLButton(event -> {		//user selected luxurious room
 			RoomList.roomList.luxRoom(true);
 		});
 		
-		datePicking.addListenerToSButton(event ->{	//show available rooms
-			if(DateInput.parseDate(datePicking.getStart()) != null && DateInput.parseDate(datePicking.getEnd()) != null) {
-				if(DateReservation.allowedDates(DateInput.parseDate(datePicking.getStart()),DateInput.parseDate(datePicking.getEnd()))){
-					RoomList.roomList.setDateReservation(new DateReservation(DateInput.parseDate(datePicking.getStart()),DateInput.parseDate(datePicking.getEnd())));
+		datePicking.addListenerToSButton(event -> {	//show available rooms
+			LocalDate startDate = DateInput.parseDate(datePicking.getStart());
+			LocalDate endDate = DateInput.parseDate(datePicking.getEnd());
+			if (startDate != null && endDate != null) {
+				if (DateReservation.allowedDates(startDate, endDate)){
+					RoomList.roomList.setDateReservation(new DateReservation(startDate, endDate));
 					getContentPane().removeAll();
 					getContentPane().add(reservePanel); //add reservation date here
 					revalidate();
 					repaint();
 					pack();
-				}
-				else {
+				}  else {
 					JOptionPane.showMessageDialog(this, "Stay cannot be longer than 60 nights.");
 				}
-			}
-			else {
+			}  else {
 				JOptionPane.showMessageDialog(this, "Invalid date has been entered.");
 			}
 		});
@@ -179,17 +193,25 @@ public class MenuFrame extends JFrame{
 		//---------------------------------------------------------------------------------------------------------
 		
 		reservePanel = new ReservationPanel(RoomList.roomList);
-		JButton confirm = new JButton("Confirm"), more = new JButton("More Reservations"), done = new JButton("Done"),  econ = new JButton("$100"), lux = new JButton("$300"), change = new JButton("Confirm Change of Date");
+		JButton confirm = new JButton("Confirm"),
+					more = new JButton("More Reservations"),
+					done = new JButton("Done"),
+					econ = new JButton("$100"),
+					lux = new JButton("$300"),
+					change = new JButton("Confirm Change of Date");
 		
-		confirm.addActionListener(event ->{			//add to list of reservations made by person
-			Reservation r = new Reservation();
-			if(RoomList.roomList.getRoom(reservePanel.getRoomNum()) != null)
-			r.addRoom(RoomList.roomList.getRoom(reservePanel.getRoomNum()));
-			current.reserve(r);
+		confirm.addActionListener(event -> {			//add to list of reservations made by person
+			Reservation reservation = new Reservation();
+			Integer roomNumber = reservePanel.getRoomNum();
+			if (roomNumber == null || RoomList.roomList.getRoom(roomNumber) == null) return;
+			// Arrays start at 0
+			reservation.addRoom(RoomList.roomList.getRoom(roomNumber), RoomList.roomList.getDateReservation());
+
+			current.reserve(reservation);
 			Guest.guest.writeToFile();
 		});
 		
-		more.addActionListener(event ->{			//move back to date picking panel
+		more.addActionListener(event -> {			//move back to date picking panel
 			getContentPane().removeAll();
 			getContentPane().add(datePicking); 
 			revalidate();
@@ -247,42 +269,13 @@ public class MenuFrame extends JFrame{
 		
 		receiptChoice = new JPanel();
 		JButton simple = new JButton("Simple"), comprehensive = new JButton("Comprehensive");
-		simple.addActionListener(event -> {
-			selectedReceipt = new SimpleReceipt(current);
-			displayReceipt = new ReceiptPanel(selectedReceipt);
-			getContentPane().removeAll();
-			getContentPane().add(displayReceipt); 
-			revalidate();
-			repaint();
-			
-		});
-		
-		comprehensive.addActionListener(event -> {
-			selectedReceipt = new ComprehensiveReceipt(current);
-			displayReceipt = new ReceiptPanel(selectedReceipt);
-			getContentPane().removeAll();
-			getContentPane().add(displayReceipt); 
-			revalidate();
-			repaint();
-			
-		});
+		simple.addActionListener(event -> showReceipt(new SimpleReceipt(current)));
+		comprehensive.addActionListener(event -> showReceipt(new ComprehensiveReceipt(current)));
+
 		receiptChoice.add(new JLabel("Choose a type of receipt:"));
 		receiptChoice.add(simple);
 		receiptChoice.add(comprehensive);
-		
-		//---------------------------------------------------------------------------------------------------------
-		
-		displayReceipt = new ReceiptPanel();
-		displayReceipt.addListener(event -> { //make the button in receipt panel to return to main menu
-			current = null;
-			selectedReceipt = null;
-			displayReceipt = null;
-			getContentPane().removeAll();
-			getContentPane().add(main); 
-			revalidate();
-			repaint();
-			pack();
-		});
+
 		
 		//---------------------------------------------------------------------------------------------------------
 		managerOptions = new JPanel();
@@ -299,7 +292,7 @@ public class MenuFrame extends JFrame{
 		view.addActionListener(event ->{
 			getContentPane().removeAll();
 			getContentPane().add(new AvailableRoomViewPanel(RoomList.roomList), BorderLayout.NORTH);
-			getContentPane().add(new ClickableRoomPanel(RoomList.roomList),BorderLayout.SOUTH);
+			getContentPane().add(new ClickableRoomPanel(),BorderLayout.SOUTH);
 			revalidate();
 			repaint();
 			pack();
@@ -334,5 +327,24 @@ public class MenuFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-	
+
+	private void showReceipt(Receipt receipt) {
+		JFrame receiptFrame = new JFrame();
+		ReceiptPanel receiptPanel = new ReceiptPanel(receipt);
+		receiptPanel.addListener(event -> { //make the button in receipt panel to return to main menu
+			current = null;
+			getContentPane().removeAll();
+			getContentPane().add(main);
+			revalidate();
+			repaint();
+			pack();
+
+			receiptFrame.setVisible(false);
+		});
+
+		receiptFrame.add(receiptPanel);
+		receiptFrame.pack();
+		receiptFrame.setVisible(true);
+		receiptFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 }

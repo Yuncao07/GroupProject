@@ -20,9 +20,7 @@ public abstract class Month extends JPanel implements DatePicker {
 	LocalDate currentMonth;
 	LocalDate selectedDate;
 
-	/**
-	 * Instances
-	 */
+	
 	public Month() {
 		selectedDate = LocalDate.now();
 		currentMonth = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth() - 1);
@@ -38,6 +36,10 @@ public abstract class Month extends JPanel implements DatePicker {
 		add(monthDaysPanel, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * panel with buttons to change month and shows current month
+	 * @return
+	 */
 	private JPanel getDisplayPanel() {
 		final JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 3));
@@ -65,6 +67,10 @@ public abstract class Month extends JPanel implements DatePicker {
 		return panel;
 	}
 
+	/**
+	 * panel with days in month calendar
+	 * @return
+	 */
 	private JPanel getMonthDaysPanel() {
 		final JPanel monthPanel = new JPanel();
 		final GridLayout layout = new GridLayout(6, 7);
@@ -75,11 +81,19 @@ public abstract class Month extends JPanel implements DatePicker {
 		return monthPanel;
 	}
 
+	/**
+	 * Gets the month in text
+	 * @return the month in text
+	 */
 	private String getMonthDisplayText() {
 		return String.format("%s %d", currentMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.US),
 				currentMonth.getYear());
 	}
 
+	/**
+	 * set current month to display
+	 * @param month the month to display
+	 */
 	private void setCurrentMonth(final int month) {
 		final int monthsPerYear = 12;
 		int year = currentMonth.getYear();
@@ -101,11 +115,18 @@ public abstract class Month extends JPanel implements DatePicker {
 		repaint();
 	}
 
+	/**
+	 * redraw the calendar when the month is changed
+	 */
 	private void redrawMonthDaysPanel() {
 		monthDaysPanel.removeAll();
 		addDaysOfMonthToPanel(monthDaysPanel);
 	}
 
+	/**
+	 * add days of month to the panel
+	 * @param monthPanel panel with month displayed
+	 */
 	private void addDaysOfMonthToPanel(JPanel monthPanel) {
 		for (int i = 0; i < currentMonth.getDayOfWeek().getValue(); i++) {
 			monthPanel.add(Box.createRigidArea(new Dimension(1, 1)));

@@ -1,5 +1,9 @@
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import static java.lang.Math.toIntExact;
+import static java.time.temporal.ChronoUnit.DAYS;
+
 /**
  * A data type that holds a starting date and an ending date period with fuctionality
  * to check for legal dates for reservation
@@ -43,6 +47,10 @@ public class DateReservation implements Serializable{
 	 */
 	public LocalDate getEndDate() {
 		return endDate;
+	}
+
+	public int getNumberDays() {
+		return toIntExact(DAYS.between(startDate, endDate));
 	}
 	
 	public String toString() {

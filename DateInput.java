@@ -25,7 +25,8 @@ public abstract class DateInput extends JPanel implements ActionListener, DatePi
 		if (!matcher.find() || matcher.groupCount() < 3)
 			return null;
 
-		return LocalDate.of(Integer.parseInt(matcher.group(3)), Integer.parseInt(matcher.group(1)),
+		int year = Integer.parseInt(matcher.group(3));
+		return LocalDate.of(year < 100 ? year + 2000 : year, Integer.parseInt(matcher.group(1)),
 				Integer.parseInt(matcher.group(2)));
 	}
 

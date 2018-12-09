@@ -21,7 +21,7 @@ public class ReceiptPanel extends JPanel{
 	public ReceiptPanel(Receipt r) {
 		receipt = new JTextArea();
 		done = new JButton("Done");
-		text = r.getReportType() + "\n" + r.formatHeader() + "\n" + r.formatRoom() + "\n" + r.formatFooter();
+		text = r.formatHeader() + "\n" + r.formatRoom() + "\n" + r.formatFooter();
 		receipt.setText(text);
 		receipt.setEditable(false);
 		add(receipt,BorderLayout.CENTER);

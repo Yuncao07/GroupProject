@@ -1,16 +1,18 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
+
 /**
  * Stores the information of a user and the reservations that they made
- * @author 
+ * @author Yun Cao
  *
  */
 public class Account implements Serializable{
 	private String ID;
 	private String password;
 	private String fullName;
-	private ArrayList<Reservation> reservationList;
+	private List<Reservation> reservationList;
 	/**
 	 * Constructs an account with the specified elements
 	 * @param id username of user account
@@ -56,30 +58,27 @@ public class Account implements Serializable{
 	 * @param r A date period to be removed from the user list
 	 */
 	public void cancel(Reservation r) {
-		for(int i = reservationList.size(); i >= 0; i--) {
-			if(reservationList.get(i) == r)
-				reservationList.remove(i);
-				
-		}
+		reservationList = reservationList.stream()
+					.filter(reservation -> !reservation.equals(r))
+					.collect(Collectors.toList());
 	}
 	/**
-	 * to access reservation made in a specific date
-	 * @param d the date someone makes reservation
+	 * to access reservations made in a specific date
+	 * @param date the date someone makes reservation
 	 * @return all the reservations made on that date if the date is found, 
 	 * 			if not, return null
 	 */
-	public Reservation getReservation(LocalDate d) {
-		for(Reservation r : reservationList) {
-			if(d.equals(r.getDateReserve()))
-					return r;
-		}
-		return null;
+	public List<Reservation> getReservations(LocalDate date) {
+		return reservationList.stream()
+					.filter(reservation -> date.equals(reservation.getDateReserve()))
+					.collect(Collectors.toList());
 	}
+
 	/**
 	 * to access all the reservations made
 	 * @return reservationList list of all reservation made
 	 */
-	public ArrayList<Reservation> getReservationList() {
+	public List<Reservation> getReservationList() {
 		return reservationList;
 	}
 	

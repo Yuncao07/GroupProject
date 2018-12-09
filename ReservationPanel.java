@@ -29,7 +29,8 @@ public class ReservationPanel extends JPanel{
 	 * Gets the room number entered by user in the text field
 	 * @return room number entered by user
 	 */
-	public int getRoomNum() {
+	public Integer getRoomNum() {
+		if (roomNum.getText() == "") return null;
 		return Integer.parseInt(roomNum.getText());
 	}
 }
