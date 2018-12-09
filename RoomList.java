@@ -1,5 +1,6 @@
 /**
  * @author Yun Cao
+
  * This class is for showing available rooms with their room numbers
  * Model of calendar view
  */
@@ -42,24 +43,45 @@ public class RoomList {
 		
 	}
 	
+	/**
+	 * This method used to set the date of reservation. 
+	 * The set date can then be used to find the availability of rooms.
+	 * @param d is the date. 
+	 */
 	public void setDate(LocalDate d) {
 		date = d;
 		mutator();
 	}
 	
+	/**
+	 * This method is used to attach the listeners to the data in the model. 
+	 * @param c is the changelistener to be added. 
+	 */
 	public void attach(ChangeListener c) {
 		listeners.add(c);
 	}
 	
+	/**
+	 * This method is called whenever the data in this class(Model) is changed. 
+	 */
 	public void mutator() {
 		for(ChangeListener c : listeners) {
 			c.stateChanged(new ChangeEvent(this));
 		}
 	}
+	
+	/**
+	 * This method is used to initialize the DateReservation object. 
+	 * @param d is the DateReservatoin reference 
+	 */
 	public void setDateReservation(DateReservation d) {
 		period = d;
 		mutator();
 	}
+	
+	/**
+	 * @return the DateRerservatoin object. 
+	 */
 	public DateReservation getDateReservation() {
 		return period;
 	}
@@ -103,16 +125,34 @@ public class RoomList {
 		return reservedRooms;
 	}
 	
+	/**
+	 * To check if the room is a Luxury Room. 
+	 * @param b is a boolean value to determine if the room is a luxury room or not. 
+	 */
 	public void luxRoom(boolean b) {
 		isLuxRoom = b;
 		mutator();
 	}
+	
+	/**
+	 * @return a list of Economic Rooms
+	 */
 	public ArrayList<EconomicRoom> getEconRoomList(){
 		return eRoom;
 	}
+	
+	/**
+	 * @return a list of luxury rooms 
+	 */
 	public ArrayList<LuxRoom> getLuxRoomList(){
 		return lRoom;
 	}
+	
+	/**
+	 * To get a list of rooms that are available for a certain time period. 
+	 * @param datePeriod is a DateReservationn object containing the time period of reservation. 
+	 * @return the list of needed rooms 
+	 */
 	public ArrayList<Room> getChosenAvailableRooms(DateReservation datePeriod){
 		ArrayList<Room> selected = new ArrayList<>();
 		if(isLuxRoom) {
@@ -130,6 +170,11 @@ public class RoomList {
 		return selected;
 	}
 	
+	/**
+	 * To get a reference of a room based on the room number. 
+	 * @param i is the room number of the required room 
+	 * @return the required room object 
+	 */
 	public Room getRoom(int i) {
 		for(Room r : eRoom) {
 			if(r.getRoomNumber() == i) {
