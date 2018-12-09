@@ -18,7 +18,7 @@ public class ReservationViewCancel extends JPanel {
 		String text = "You have reservations on: \n";
 		for(Reservation r : rList) {
 			for(Room room : r.getReservedRooms())
-				text += r.getDateReserve().toString() + " with room: " + room.getRoomNumber();
+				text += r.getDateReserve().toString() + " with room: " + room.getRoomNumber() + "\n";
 		}
 		
 		view.setPreferredSize(new Dimension(500, 500));
