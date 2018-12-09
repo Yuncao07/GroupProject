@@ -135,11 +135,8 @@ public class MenuFrame extends JFrame{
 
 		viewOrCancel.addActionListener(event ->{	//allow this guest to check reservations and cancel if needed
 			viewCancel = new ReservationViewCancel(current.getReservationList());
-			viewCancelChoice.setLayout(new BorderLayout());
-			cancel = new JButton();
 			getContentPane().removeAll();
 			getContentPane().add(viewCancel);
-			getContentPane().add(cancel);
 			revalidate();
 			repaint();
 			pack();
