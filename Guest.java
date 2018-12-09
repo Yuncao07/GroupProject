@@ -45,15 +45,25 @@ public class Guest implements Serializable {
 	}
 
 	private ArrayList<Account> accounts;
-
+	/**
+	 * Creates a new guest with storage for user accounts
+	 */
 	private Guest() {
 		accounts = new ArrayList<Account>();
 	}
-
+	/**
+	 * Adds an account to the list of guests signed up
+	 * @param a account to be saved into data
+	 */
 	public void addGuest(Account a) {
 		accounts.add(a);
 	}
-
+	/**
+	 * Checks to see if the account can be accessed
+	 * @param username user name to be checked against all accounts in list
+	 * @param password string to be checked against all account password fields in list
+	 * @return
+	 */
 	public boolean verify(String username, String password) {
 		boolean accessible = false;
 		for (Account a : accounts) {
@@ -63,7 +73,10 @@ public class Guest implements Serializable {
 		}
 		return accessible;
 	}
-
+	/**
+	 * Gets the list of accounts stored
+	 * @return the list of accounts
+	 */
 	public ArrayList<Account> getGuests() {
 		return accounts;
 	}
