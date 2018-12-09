@@ -17,6 +17,7 @@ public class MenuFrame extends JFrame{
 	private Account current;
 	private Receipt selectedReceipt;
 	private ReceiptPanel displayReceipt; 
+	private ReservationViewCancel viewCancel;
 	
 	/**
 	 * This creates a menu that the user can move around the program with.
@@ -131,12 +132,14 @@ public class MenuFrame extends JFrame{
 			pack();
 		});
 		
-		viewCancelChoice = new JPanel();
-		viewCancelChoice.setLayout(new BorderLayout());
-		cancel = new JButton();
+
 		viewOrCancel.addActionListener(event ->{	//allow this guest to check reservations and cancel if needed
+			viewCancel = new ReservationViewCancel(current.getReservationList());
+			viewCancelChoice.setLayout(new BorderLayout());
+			cancel = new JButton();
 			getContentPane().removeAll();
-			getContentPane().add(viewCancelChoice);
+			getContentPane().add(viewCancel);
+			getContentPane().add(cancel);
 			revalidate();
 			repaint();
 			pack();
