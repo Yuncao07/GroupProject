@@ -8,7 +8,7 @@ import javax.swing.*;
  *
  */
 public class MenuFrame extends JFrame{
-	private JPanel guest,main, initial, reserveChoice, viewCancelChoice, receiptChoice, managerOptions, managerView;
+	private JPanel guest,main, initial, reserveChoice, receiptChoice, managerOptions, managerView;
 	private LoginPanel login;
 	private SignUpPanel supanel;
 	private JButton guestButton, managerButton, cancel;
@@ -135,7 +135,6 @@ public class MenuFrame extends JFrame{
 
 		viewOrCancel.addActionListener(event ->{	//allow this guest to check reservations and cancel if needed
 			viewCancel = new ReservationViewCancel(current.getReservationList());
-			viewCancelChoice.setLayout(new BorderLayout());
 			cancel = new JButton();
 			getContentPane().removeAll();
 			getContentPane().add(viewCancel);
